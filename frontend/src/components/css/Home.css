@@ -1,0 +1,87 @@
+#home-container {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.758), rgba(0, 0, 0, 0.826)), 
+    url(../../assets/images/home-bg.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.home-logo {
+    width: 165px;
+}
+
+.home-circle-img {
+    width: 105px;
+    height: 105px;
+    border: 1px solid rgba(255, 255, 255, 0.612);
+    border-radius: 50%;
+    position: absolute;
+    object-fit: cover;
+}
+
+
+.h-img-1 {
+    top: 0;
+    left: 0;
+}
+
+.h-img-2 {
+    bottom: 5.4rem;
+    right: 2.3rem;
+}
+
+.h-img-3 {
+    bottom: 6.5rem;
+    left: 1rem;
+}
+
+.h-img-4 {
+    top: 1.3rem;
+    right: 2.6rem;
+}
+
+.h-img-5 {
+    top: 27%;
+    left: 35%;
+}
+
+.h-img-6 {
+    top: -2.3rem;
+    left: 35%;
+}
+
+.h-img-7 {
+    bottom: .5rem;
+    right: 32%;
+}
+
+.h-img-8 {
+    bottom: -1rem;
+    left: 2rem;
+}
+
+.home-link {
+    font-size: 1.1rem;
+    padding: 5px 10px;
+    transition: ease-in-out .4s;
+}
+
+.home-link-1 {
+    color: #fff;
+    border: 1.5px solid white;
+}
+
+.home-link-2 {
+    color: #000;
+    border: 1.5px solid white;
+    background-color: #fff;
+}
+
+.home-link-1:hover {
+    background-color: #fff;
+    color: #000; 
+}
+
+.home-link-2:hover {
+    background-color: transparent;
+    color: #fff; 
+}

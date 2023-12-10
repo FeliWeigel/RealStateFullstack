@@ -1,0 +1,33 @@
+services:
+  db:
+    container_name: wm-develop-aws
+    image: postgres:14.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 44791991
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5332:5432"
+    networks:
+      - db
+    restart: unless-stopped
+  wm-develop-aws:
+    container_name: wm-develop-aws
+    image: wmdevelop/wm-develop-aws
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/RStateProject
+    ports:
+      - "8088:8080"
+    networks:
+      - db
+    depends_on:
+      - db
+    restart: unless-stopped
+networks:
+  db:
+    driver: bridge
+
+volumes:
+  db:

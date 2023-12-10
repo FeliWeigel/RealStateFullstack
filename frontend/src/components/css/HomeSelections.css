@@ -1,0 +1,59 @@
+.selections-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#selections-1, #selections-2, 
+#selections-3 {
+    background-position: center;
+    background-size: cover;
+    transition: ease-in-out .35s;
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#selections-1:hover, #selections-2:hover,
+#selections-3:hover  {
+    opacity: .4;
+}
+
+#selections-1 {
+    background-image: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .6)), url(../../assets//images/selections1.png);
+    clip-path: polygon(0% 10%, 100% 0%, 100% 90%, 0% 100%);
+}
+
+#selections-2 {
+    background-image: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .6)), url(../../assets//images/selections2.png);
+    clip-path: polygon(0% 10%, 100% 0%, 100% 90%, 0% 100%);
+}
+
+#selections-3 {
+    background-image: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .6)), url(../../assets//images/selections3.png);
+    clip-path: polygon(0% 10%, 100% 0%, 100% 90%, 0% 100%);
+}
+
+
+.text-display {
+    animation: 1s text-display;
+    opacity: 1;
+}
+
+#selections-txt-1 {
+    font-size: 1.2rem;
+    color: #fff;
+    text-align: center;
+    margin: auto;
+    z-index: 100;
+    opacity: 0;
+    transition: ease-in .3s;
+}
+
+.picks-logo {
+    color: #fff;
+    margin-bottom: .5rem;
+    border: 1px solid #ffffff73;
+    border-radius: 5px;
+    padding: 8px;
+}
