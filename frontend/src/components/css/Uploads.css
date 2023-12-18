@@ -5,4 +5,22 @@
     color: #fff;
     margin-bottom: 10px;
     transition: .4s;
+    background-color: transparent;
+    font-family: 'Raleway', sans-serif;
+}
+
+.description-input {
+    padding: .8rem;
+    padding-bottom: 1rem;
+    font-size: 1rem;
+    position: relative;
+}
+
+.description-input:focus {
+    border: 1px solid rgba(255,255,255, .3);
+    outline: none;
+}
+
+.checkbox-input {
+    padding: 10px;
 }

@@ -1,6 +1,6 @@
 services:
   db:
-    container_name: wm-develop-aws
+    container_name: rstate-fullstack
     image: postgres:14.1
     environment:
       POSTGRES_USER: postgres
@@ -13,9 +13,9 @@ services:
     networks:
       - db
     restart: unless-stopped
-  wm-develop-aws:
-    container_name: wm-develop-aws
-    image: wmdevelop/wm-develop-aws
+  rstate-fullstack:
+    container_name: rstate-fullstack
+    image: wmdevelop/rstate-fullstack
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/RStateProject
     ports:

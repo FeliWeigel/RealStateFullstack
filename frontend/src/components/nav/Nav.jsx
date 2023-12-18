@@ -34,38 +34,47 @@ const Nav = () => {
                 width: '35%',
                 color: 'rgba(255,255,255, 0.5)'
             }}>
-                <ListItem sx={{
-                    cursor: 'pointer',
-                    transition: '.4s',
-                    ":hover": {
-                        color: '#fff',
-                        transform: 'translateY(-.2rem)'
-                    }
-                }}>Home</ListItem>
-                <ListItem sx={{
-                    cursor: 'pointer',
-                    transition: '.4s',
-                    ":hover": {
-                        color: '#fff',
-                        transform: 'translateY(-.2rem)'
-                    }
-                }}>Properties</ListItem>
-                <ListItem sx={{
-                    cursor: 'pointer',
-                    transition: '.4s',
-                    ":hover": {
-                        color: '#fff',
-                        transform: 'translateY(-.2rem)'
-                    }
-                }}>About Us</ListItem>
-                <ListItem sx={{
-                    cursor: 'pointer',
-                    transition: '.4s',
-                    ":hover": {
-                        color: '#fff',
-                        transform: 'translateY(-.2rem)'
-                    }
-                }}>Contact</ListItem>
+                <Link className="nav-link" to="/">
+                    <ListItem sx={{
+                        cursor: 'pointer',
+                        transition: '.4s',
+                        ":hover": {
+                            color: '#fff',
+                            transform: 'translateY(-.2rem)'
+                        }
+                    }}>Home</ListItem>
+                </Link>
+                <Link className="nav-link" to="/properties/all">
+                    <ListItem sx={{
+                        cursor: 'pointer',
+                        transition: '.4s',
+                        ":hover": {
+                            color: '#fff',
+                            transform: 'translateY(-.2rem)'
+                        }
+                    }}>Properties</ListItem>
+                </Link>
+                <Link className="nav-link" to="/properties/all">
+                    <ListItem sx={{
+                        cursor: 'pointer',
+                        transition: '.4s',
+                        ":hover": {
+                            color: '#fff',
+                            transform: 'translateY(-.2rem)'
+                        }
+                    }}>About Us</ListItem>
+                </Link>
+                
+                <Link className="nav-link" to="/contact_form">
+                    <ListItem sx={{
+                        cursor: 'pointer',
+                        transition: '.4s',
+                        ":hover": {
+                            color: '#fff',
+                            transform: 'translateY(-.2rem)'
+                        }
+                    }}>Contact</ListItem>
+                </Link>
             </List>
             <Link className="login-link" to='/auth/login'>
                 Log in <Icon icon={logIn} size={20}></Icon>
