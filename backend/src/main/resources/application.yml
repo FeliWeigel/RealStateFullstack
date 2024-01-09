@@ -14,7 +14,7 @@ aws:
   s3:
     mock: true
     buckets:
-      global: realstate-wmdevelop
+      global: wmdevelop-rstate
 
 management:
   endpoints:
@@ -24,12 +24,12 @@ management:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/RStateProject
+    url: jdbc:postgresql://postgres_db:5432/rstateproject
     username: postgres
     password: 44791991
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

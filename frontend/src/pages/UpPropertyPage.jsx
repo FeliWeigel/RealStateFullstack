@@ -1,10 +1,10 @@
-import { UploadProperty } from "../components/admin/UploadProperty"
+import UploadPropertyForm  from "../components/admin/UploadPropertyForm"
 import Footer from "../components/footer/Footer"
 
 const UploadPropertyPage = () => {
   return (
     <>
-        <UploadProperty/>
+        <UploadPropertyForm/>
         <Footer/>
     </>
   )

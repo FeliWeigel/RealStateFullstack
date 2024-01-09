@@ -10,10 +10,9 @@ export const config = () => {
     }
 }
 
-export const uploadProperty = (request ,property) => {
-    const url = ApiUrlBase + `/${request}/upload`
-
-    return axios.post(url, property, config())
+export const uploadProperty = (request , formData) => {
+    const url = ApiUrlBase + `/${request}/upload`    
+    return axios.post(url, formData, config())
 }
 
 export const getAllProperties = (request) => {

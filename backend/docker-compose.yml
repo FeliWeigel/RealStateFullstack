@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  app:
+    container_name: rstatecontainer
+    image: rstate-project:1
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=jdbc:postgresql://postgres_db:5432/rstateproject
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=44791991
+    depends_on:
+      - postgres_db
+
+  postgres_db:
+    container_name: postgres_db
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "44791991"
+      POSTGRES_DB: "rstateproject"
+
+volumes:
+  postgres-data:
