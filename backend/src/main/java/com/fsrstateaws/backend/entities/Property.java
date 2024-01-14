@@ -5,32 +5,38 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 import java.util.Date;
+
 
 @Entity
 @Table(
-        name = "apartment",
+        name = "property",
         uniqueConstraints = {
                 @UniqueConstraint(
-                        name = "apartment_image_id_unique",
-                        columnNames = "apartmentImageId"
+                        name = "property_image_id_unique",
+                        columnNames = "propertyImageId"
                 )
         }
 )
-@Data
 @Builder
+@Data
 @AllArgsConstructor@NoArgsConstructor
-public class Apartment {
+public class Property{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long apartmentId;
+    @GeneratedValue
+    private Long propertyId;
     @Column(unique = true)
-    private String apartmentImageId;
+    private String propertyImageId;
+
+    private Boolean hasPool;
+    private Integer floors;
     private String name;
     private String description;
     private String location;
-    private Date uploadDate;
+    private Date uploadDate = new Date();
     private Boolean onSale;
     private Integer surface;
     private Integer bedrooms;

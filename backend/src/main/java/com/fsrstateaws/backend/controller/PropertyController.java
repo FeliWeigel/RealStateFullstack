@@ -1,0 +1,54 @@
+package com.fsrstateaws.backend.controller;
+
+import com.fsrstateaws.backend.entities.Property;
+import com.fsrstateaws.backend.service.PropertyService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/properties")
+@CrossOrigin("http://localhost:5173")
+@RequiredArgsConstructor
+
+public class PropertyController {
+
+    private final PropertyService propertyService;
+
+    @PostMapping("/upload")
+    public ResponseEntity<Object> uploadProperty(@RequestBody Property property){
+        return propertyService.uploadProperty(property);
+    }
+
+    @PostMapping(
+            value = "/upload/upload-image/{propertyId}",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+    )
+    public ResponseEntity<Object> uploadPropertyImage(@RequestParam("file") MultipartFile file,
+                                                       @PathVariable Long propertyId){
+        return new ResponseEntity<>(propertyService.uploadPropertyImage(propertyId, file), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<Property>> allProperties(){
+        return new ResponseEntity<>(propertyService.getAllProperties(), HttpStatus.OK);
+    }
+
+    @GetMapping(
+            value = "/all/{propertyId}/file",
+            produces = MediaType.IMAGE_JPEG_VALUE
+    )
+    public ResponseEntity<byte[]> propertyImage(@PathVariable Long propertyId){
+        return new ResponseEntity<>(propertyService.getPropertyImage(propertyId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/detele/{propertyId}")
+    public ResponseEntity<Object> deleteProperty(@PathVariable Long propertyId){
+        return new ResponseEntity<>(propertyService.deleteProperty(propertyId), HttpStatus.OK);
+    }
+}
