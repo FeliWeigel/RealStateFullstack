@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useState, useCallback} from "react"
 import "../../index.css"
 import "../css/Uploads.css"
 
@@ -6,117 +6,87 @@ import Nav from "../nav/Nav"
 
 import {useDropzone} from 'react-dropzone'
 import { Box, Button, FormLabel, InputBase, TextareaAutosize, Typography } from "@mui/material"
-import { uploadProperty } from "../../services/PropertyService"
+import { uploadProperty, uploadPropertyImage } from "../../services/PropertyService"
 
 const UploadPropertyForm = () => {
-    const [apartment, setApartment] = useState({
+    const [property, setProperty] = useState({
         name: "",
         description: "",
-        bathrooms: 0,
-        bedrooms: 0,
-        price: 0.0,
-        surface: 0,
-        onSale: false,
-        location: ""
-    })
-    const [house, setHouse] = useState({
-        name: "",
-        description: "",
+        location: "",
         bathrooms: 0,
         bedrooms: 0,
         price: 0.0,
         surface: 0,
         floors: 0,
         onSale: false,
-        hasPool: false,
-        location: "" 
+        hasPool: false
     })
-    const [houseType, setHouseType] = useState(false)
-    const [apartmentType, setApartmentType] = useState(false)
     const [file, setFile] = useState(null)
 
-    const onDrop = (acceptedFiles) => {
-        setFile({
-            ...file,
-            file: acceptedFiles[0]
-        })
-    };
+    const onDrop = useCallback(acceptedFiles => {
+        const formData = new FormData();
+        formData.append("file", acceptedFiles[0])
+        setFile(formData)
+    }, [])
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
-
+    
     const handleChange = async e => {
-        if(apartmentType){
-            await setApartment({
-                ...apartment,
-                [e.target.name]: e.target.value
-            })
-        }else{
-            await setHouse({
-                ...house,
-                [e.target.name]: e.target.value
-            })
-        }
+        await setProperty({
+            ...property,
+            [e.target.name]: e.target.value
+        })
     }
 
     const handleOnSale = () => {
-        let checkbox = document.getElementById('apartment-checkbox') 
+        let checkbox = document.getElementById('onsale-checkbox') 
         let checked = checkbox.checked
         
         if(checked){
-            setApartment({
+            setProperty({
+                ...property,
                 onSale: true
             })
         }else {
-            setApartment({
+            setProperty({
+                ...property,
                 onSale: false
             })
         }
+
+
     }
 
-    const changeTypeHouse = () => {
-        if(!houseType){
-            setHouseType(true)
-            setApartmentType(false)
-        }
-    }
+    const handleHasPool = () => {
+        let checkbox = document.getElementById('pool-checkbox')
+        let checked = checkbox.checked
 
-    const changeTypeApartment = () => {
-        if(!apartmentType){
-            setHouseType(false)
-            setApartmentType(true)
-        }
-    }
-
-    const handleUploadApartment = async (e) => {
-        e.preventDefault()
-        
-        const formData = new FormData();
-        formData.append('file', file)
-        formData.append('apartment', JSON.stringify(apartment))
-        
-        try{      
-            await uploadProperty("apartments", formData) 
-            .then(res => {
-                console.log(res.data)
+        if(checked){
+            setProperty({
+                ...property,
+                hasPool: true
             })
-            .catch(err => {
-                console.log(err)
-                console.log(formData)
+        }else {
+            setProperty({
+                ...property,
+                hasPool: false
+            })
+        }
+    }
+
+    const handleUploadProperty = async (e) => {
+        e.preventDefault()
+        try{      
+            await uploadProperty(property)
+            .then(res => {
+                console.log(res)
+                uploadPropertyImage(res.data.propertyId, file)
+                .catch(err => {
+                    console.log(err)
+                })
             })
         }catch(err){
             console.log(err)
         }
-    }
-
-    const handleUploadHouse = (e) => {
-        e.preventDefault()
-
-        uploadProperty("houses", house)  
-        .then(res => {
-            console.log(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
     }
 
     return (
@@ -150,20 +120,9 @@ const UploadPropertyForm = () => {
                     }}
                 >Upload property</Typography>
                 <Box 
-                    position={'absolute'}
-                    left={'4rem'}
-                    top={'20%'}
-                    display={'flex'}
-                    flexDirection={'column'}
-                    rowGap={'1rem'}
-                >
-                    <Button onClick={changeTypeHouse} variant={houseType ? "contained" : "outlined"}>House</Button>
-                    <Button onClick={changeTypeApartment} variant={apartmentType ? "contained" : "outlined"}>Apartment</Button>
-                </Box>
-                <Box 
                     component={'form'}
-                    encType="multipart/form-data"
-                    onSubmit={houseType ? handleUploadHouse : handleUploadApartment}
+                    encType="multipart/form"
+                    onSubmit={handleUploadProperty}
                     width={'38%'}
                     margin={'0 auto'}
                     padding={'2rem 3rem'}
@@ -252,44 +211,40 @@ const UploadPropertyForm = () => {
                             ></InputBase>
                         </Box>
                     </Box>
-                    
-                    {houseType ? 
 
-                            <Box display={'flex'} justifyContent={'space-between'}>
-                                <Box display={'flex'} flexDirection={'column'}>
-                                    <FormLabel htmlFor="floors" sx={{
-                                        color: "#fff",
-                                        width: '290px'
-                                    }}>
-                                        Floors
-                                    </FormLabel>
-                                    <InputBase 
-                                        className="upload-input"
-                                        name="floors"
-                                        type="number"
-                                        onChange={handleChange}
-                                        sx={{color: '#fff'}}
-                                    ></InputBase>
-                                </Box>
-                                <Box display={'flex'} flexDirection={'column'}>
-                                    <FormLabel htmlFor="hasPool" 
-                                    sx={{
-                                        color: "#fff"
-                                    }}>
-                                        Has Pool?
-                                    </FormLabel>
-                                    <InputBase 
-                                        id="apartment-checkbox"
-                                        className="upload-input checkbox-input"
-                                        name="hasPool"
-                                        type="checkbox"
-                                        onClick={handleOnSale}
-                                    ></InputBase>
-                                </Box>
-                            </Box>
-                        
-                        : null
-                    }
+                    <Box display={'flex'} justifyContent={'space-between'}>
+                        <Box display={'flex'} flexDirection={'column'}>
+                            <FormLabel htmlFor="floors" sx={{
+                                color: "#fff",
+                                width: '290px'
+                            }}>
+                                Floors
+                            </FormLabel>
+                            <InputBase 
+                                className="upload-input"
+                                name="floors"
+                                type="number"
+                                onChange={handleChange}
+                                sx={{color: '#fff'}}
+                            ></InputBase>
+                        </Box>
+                        <Box display={'flex'} flexDirection={'column'}>
+                            <FormLabel htmlFor="hasPool" 
+                            sx={{
+                                color: "#fff"
+                            }}>
+                                Has Pool?
+                            </FormLabel>
+                            <InputBase 
+                                id="pool-checkbox"
+                                className="upload-input checkbox-input"
+                                name="hasPool"
+                                type="checkbox"
+                                onClick={handleHasPool}
+                            ></InputBase>
+                        </Box>
+                    </Box>
+
                     <Box display={'flex'} justifyContent={'space-between'}>
                         <Box display={'flex'} flexDirection={'column'}>
                             <FormLabel htmlFor="location" 
@@ -304,6 +259,7 @@ const UploadPropertyForm = () => {
                                 name="location"
                                 type="text"
                                 sx={{color: '#fff'}}
+                                onChange={handleChange}
                             ></InputBase>
                         </Box>
                         <Box display={'flex'} flexDirection={'column'}>
@@ -314,7 +270,7 @@ const UploadPropertyForm = () => {
                                 On Sale?
                             </FormLabel>
                             <InputBase 
-                                id="apartment-checkbox"
+                                id="onsale-checkbox"
                                 className="upload-input checkbox-input"
                                 name="onSale"
                                 type="checkbox"
@@ -323,24 +279,15 @@ const UploadPropertyForm = () => {
                         </Box>
                     </Box>
                     
-                    
-                    <Box display={'flex'} flexDirection={'column'} marginBottom={'.5rem'}>
-                        <FormLabel htmlFor="file" sx={{color: "#fff"}}>
-                            Image
-                        </FormLabel>
-                        <InputBase
-                            id="file"
-                            className="upload-input"
-                            type="file"
-                            name="file"
-                            sx={{color: '#fff'}}
-                        ></InputBase>
-                    </Box>
-
+                    <Typography typography={'p'} color={'#fff'} 
+                    fontSize={'1.1rem'} marginBottom={'1rem'}>
+                        Image:
+                    </Typography>
                     <Box
                         {...getRootProps()}
                         sx={{
                             width: '80%',
+                            margin: '0 auto',
                             textAlign: 'center',
                             padding: '1.6rem 2rem',
                             marginBottom: '1rem',
@@ -353,8 +300,7 @@ const UploadPropertyForm = () => {
                             <Typography typography={'p'} color={'#fff'}>Drag and drop file here, or click to select file.</Typography>
                     </Box>
 
-                    <Button 
-                        onClick={houseType ? handleUploadHouse : handleUploadApartment} 
+                    <Button  
                         variant="outlined" 
                         type="submit"
                         sx={{

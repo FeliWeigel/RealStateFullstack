@@ -48,7 +48,6 @@ export default class LoginForm extends React.Component{
                     successMsg: "You have successfully logged in! Start the way to do find your home."
                 })
                 sessionStorage.setItem("access_token", res.data.access_token)
-                console.log(res.data)
             }
         })
         .catch(() => {

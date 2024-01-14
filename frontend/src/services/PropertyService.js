@@ -10,25 +10,31 @@ export const config = () => {
     }
 }
 
-export const uploadProperty = (request , formData) => {
-    const url = ApiUrlBase + `/${request}/upload`    
-    return axios.post(url, formData, config())
+export const uploadProperty = (property) => {
+    const url = ApiUrlBase + `/properties/upload`    
+    return axios.post(url, property, config())
 }
 
-export const getAllProperties = (request) => {
-    const url = ApiUrlBase + `/${request}/all`
+export const uploadPropertyImage = (propertyId, file) => {
+    const url = ApiUrlBase + `/properties/upload/upload-image/${propertyId}`
+
+    return axios.post(url, file, config())
+}
+
+export const getAllProperties = () => {
+    const url = ApiUrlBase + `/properties/all`
         
-    axios.get(url, config())
-    .then(res => {
-        console.log(res.data)
-    })
-    .catch(err => {
-        console.log(err)
-    })
+    return axios.get(url)
 }
 
-export const deleteProperty = (request, propertyId) => {
-    const url = ApiUrlBase + `/${request}/delete/${propertyId}`
+export const getPropertyImageUrl = (propertyId) => {
+    const url = ApiUrlBase + `/properties/all/${propertyId}/file`
+
+    return url
+}
+
+export const deleteProperty = (propertyId) => {
+    const url = ApiUrlBase + `/properties/delete/${propertyId}`
         
     axios.delete(url, config())
     .then(res => {
