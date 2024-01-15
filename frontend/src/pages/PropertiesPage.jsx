@@ -1,10 +1,10 @@
 import Footer from "../components/footer/Footer"
-import PropertiesList from "../components/sections/PropertiesList"
+import PropertiesFilters from "../components/properties/PropertiesFilters"
 
 const PropertiesPage = () => {
   return (
     <>
-        <PropertiesList/>
+        <PropertiesFilters/>
         <Footer/>
     </>
   )

@@ -3,3 +3,31 @@
     height:200px;
     object-fit: cover;
 }
+
+.select {
+    background-color: transparent;
+    color: #fff;
+    padding: 5px;
+    border: 1px solid rgba(255,255,255, .3);
+    transition: .45s;
+}
+
+.select:hover {
+    border: 1px solid #fff;
+}
+
+.select:focus {
+    outline: none;
+}
+
+.select-option {
+    background-color: rgba(0,0,0, .93);
+    color: #fff;
+    font-family: Lora, serif;
+    border-radius: 0px;
+    padding: 10px;
+}
+
+.card-icon {
+    color: rgba(0,0,0, .8);
+}
