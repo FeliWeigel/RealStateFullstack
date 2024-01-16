@@ -19,7 +19,8 @@ const UploadPropertyForm = () => {
         surface: 0,
         floors: 0,
         onSale: false,
-        hasPool: false
+        hasPool: false,
+        type: null
     })
     const [file, setFile] = useState(null)
 
@@ -30,47 +31,11 @@ const UploadPropertyForm = () => {
     }, [])
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
     
-    const handleChange = async e => {
+    const handleChange = async e => { 
         await setProperty({
             ...property,
             [e.target.name]: e.target.value
         })
-    }
-
-    const handleOnSale = () => {
-        let checkbox = document.getElementById('onsale-checkbox') 
-        let checked = checkbox.checked
-        
-        if(checked){
-            setProperty({
-                ...property,
-                onSale: true
-            })
-        }else {
-            setProperty({
-                ...property,
-                onSale: false
-            })
-        }
-
-
-    }
-
-    const handleHasPool = () => {
-        let checkbox = document.getElementById('pool-checkbox')
-        let checked = checkbox.checked
-
-        if(checked){
-            setProperty({
-                ...property,
-                hasPool: true
-            })
-        }else {
-            setProperty({
-                ...property,
-                hasPool: false
-            })
-        }
     }
 
     const handleUploadProperty = async (e) => {
@@ -240,7 +205,7 @@ const UploadPropertyForm = () => {
                                 className="upload-input checkbox-input"
                                 name="hasPool"
                                 type="checkbox"
-                                onClick={handleHasPool}
+                                onClick={() => {!property.hasPool ? setProperty({...property, hasPool: true}) : setProperty({...property, hasPool: false})}}
                             ></InputBase>
                         </Box>
                     </Box>
@@ -274,7 +239,51 @@ const UploadPropertyForm = () => {
                                 className="upload-input checkbox-input"
                                 name="onSale"
                                 type="checkbox"
-                                onClick={handleOnSale}
+                                onClick={() => {!property.onSale ? setProperty({...property, onSale: true}) : setProperty({...property, onSale: false})}}
+                            ></InputBase>
+                        </Box>
+                    </Box>
+
+                    <Box 
+                    display={'flex'}
+                    flexDirection={'column'}>
+                        <Box 
+                            display={'flex'} 
+                            width={'100px'} 
+                            gap={'.5rem'} 
+                            alignItems={'center'} 
+                            justifyContent={'space-between'}
+                        >
+                            <FormLabel htmlFor="isHouse" 
+                            sx={{
+                                color: "#fff"
+                            }}>
+                                House
+                            </FormLabel>
+                            <InputBase 
+                                name="type"
+                                type="radio"
+                                onClick={() => {setProperty({...property, type: 'HOUSE'})}}
+                            ></InputBase>
+                        </Box>
+
+                        <Box 
+                            display={'flex'} 
+                            width={'100px'} 
+                            gap={'.5rem'} 
+                            alignItems={'center'} 
+                            justifyContent={'space-between'}
+                        >
+                            <FormLabel htmlFor="isHouse" 
+                            sx={{
+                                color: "#fff"
+                            }}>
+                                Apartment
+                            </FormLabel>
+                            <InputBase 
+                                name="type"
+                                type="radio"
+                                onClick={() => {setProperty({...property, type: 'APARTMENT'})}}
                             ></InputBase>
                         </Box>
                     </Box>

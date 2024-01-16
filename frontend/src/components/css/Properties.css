@@ -31,3 +31,8 @@
 .card-icon {
     color: rgba(0,0,0, .8);
 }
+
+.property-details-img {
+    width: 300px;
+    height: 200px;
+}

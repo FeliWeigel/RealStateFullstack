@@ -33,6 +33,18 @@ export const getPropertyImageUrl = (propertyId) => {
     return url
 }
 
+export const getAllPropertyImages = ({propertyId}) => {
+    const url = ApiUrlBase + `/properties/all/${propertyId}/all-files`
+
+    return axios.get(url)
+}
+
+export const getPropertyDetails = ({propertyId}) => {
+    const url = ApiUrlBase + `/properties/details/${propertyId}`
+
+    return axios.get(url)
+}
+
 export const deleteProperty = (propertyId) => {
     const url = ApiUrlBase + `/properties/delete/${propertyId}`
         

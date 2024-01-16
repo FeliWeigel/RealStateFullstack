@@ -10,6 +10,7 @@ import {socialBuffer} from 'react-icons-kit/ionicons/socialBuffer'
 import {bath} from 'react-icons-kit/fa/bath'
 import {bed} from 'react-icons-kit/fa/bed'
 import {location} from 'react-icons-kit/icomoon/location'
+import { Link } from "react-router-dom"
 
 const PropertyCard = ({property}) => {
 
@@ -58,22 +59,24 @@ const PropertyCard = ({property}) => {
                 <Typography typography={'p'} fontSize={'1.05rem'}>
                     Estimated price: ${property.price}
                 </Typography>
-                <Button
-                sx={{
-                    position: 'absolute',
-                    bottom: '0',
-                    right: '-.1rem',
-                    padding: '3px 7px',
-                    transition: '.4s',
-                    borderRadius: '0px',
-                    background: 'rgba(0,0,0, .80)',
-                    color: '#fff',
-                    ":hover": {
-                        background: 'rgba(0,0,0, .73)',
-                    }  
-                }}>
-                    Explore
-                </Button>
+                <Link to={`/properties/details/${property.propertyId}`}>
+                    <Button
+                    sx={{
+                        position: 'absolute',
+                        bottom: '0',
+                        right: '-.1rem',
+                        padding: '3px 7px',
+                        transition: '.4s',
+                        borderRadius: '0px',
+                        background: 'rgba(0,0,0, .80)',
+                        color: '#fff',
+                        ":hover": {
+                            background: 'rgba(0,0,0, .73)',
+                        }  
+                    }}>
+                        Explore
+                    </Button>
+                </Link>
             </Box>
         </Card>
     )

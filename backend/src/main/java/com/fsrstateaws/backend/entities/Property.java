@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -42,4 +40,5 @@ public class Property{
     private Integer bedrooms;
     private Integer bathrooms;
     private Double price;
+    private PropertyType type;
 }

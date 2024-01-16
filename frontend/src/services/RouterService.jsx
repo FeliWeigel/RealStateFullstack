@@ -4,6 +4,7 @@ import RegisterPage from "../pages/RegisterPage"
 import LoginPage from "../pages/LoginPage"
 import UploadPropertyPage from "../pages/UpPropertyPage"
 import PropertiesPage from "../pages/PropertiesPage"
+import PropertyDetailsPage from "../pages/PropertyDetailsPage"
 
 const RouterService = () => {
   return (
@@ -13,6 +14,7 @@ const RouterService = () => {
         <Route exact path="/auth/login" element={<LoginPage/>}></Route>
         <Route exact path="/properties/upload" element={<UploadPropertyPage/>}></Route>
         <Route exact path="/properties/all" element={<PropertiesPage/>}></Route>
+        <Route exact path="/properties/details/:propertyId" element={<PropertyDetailsPage/>}></Route>
     </Routes>
   )
 }

@@ -29,14 +29,18 @@ public class PropertyController {
             value = "/upload/upload-image/{propertyId}",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
     )
-    public ResponseEntity<Object> uploadPropertyImage(@RequestParam("file") MultipartFile file,
-                                                       @PathVariable Long propertyId){
+    public ResponseEntity<Object> uploadPropertyImage(@RequestParam("file") MultipartFile file, @PathVariable Long propertyId){
         return new ResponseEntity<>(propertyService.uploadPropertyImage(propertyId, file), HttpStatus.OK);
     }
 
     @GetMapping("/all")
     public ResponseEntity<List<Property>> allProperties(){
         return new ResponseEntity<>(propertyService.getAllProperties(), HttpStatus.OK);
+    }
+
+    @GetMapping("/details/{propertyId}")
+    public ResponseEntity<Property> propertyDetails(@PathVariable Long propertyId){
+        return new ResponseEntity<>(propertyService.getPropertyDetails(propertyId), HttpStatus.OK);
     }
 
     @GetMapping(
@@ -47,8 +51,20 @@ public class PropertyController {
         return new ResponseEntity<>(propertyService.getPropertyImage(propertyId), HttpStatus.OK);
     }
 
-    @DeleteMapping("/detele/{propertyId}")
+    @GetMapping(
+            value = "/all/{propertyId}/all-files"
+    )
+    public ResponseEntity<List<String>> allImagesByProperty(@PathVariable Long propertyId){
+        return new ResponseEntity<>(propertyService.getAllImagesByProperty(propertyId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{propertyId}")
     public ResponseEntity<Object> deleteProperty(@PathVariable Long propertyId){
         return new ResponseEntity<>(propertyService.deleteProperty(propertyId), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/all")
+    public void deleteAll(){
+        propertyService.deleteAllProperties();
     }
 }

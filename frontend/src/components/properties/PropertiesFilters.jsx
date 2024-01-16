@@ -128,7 +128,7 @@ const PropertiesFilters = () => {
                     <Box height={'100%'}>
                         <Box id="select-type" onClick={handleSelect} className="select" 
                             sx={{
-                                width: '100px',
+                                width: '120px',
                                 display: 'flex',
                                 position: 'relative',
                                 padding: '10px',
@@ -144,18 +144,18 @@ const PropertiesFilters = () => {
                                 sx={{
                                     background: 'rgba(0,0,0, .97)',
                                     position: 'absolute',
-                                    width: '100px',
+                                    width: '120px',
                                     height: 'auto',
                                     transition: '.4s',
                                     zIndex: '1000'
                                 }}>
-                                    <ListItem onClick={handleSelect} sx={{
+                                    <ListItem onClick={() => {setFilters({...filters, type: 'HOUSE'})}} sx={{
                                         textAlign: 'center',
                                         padding: '10px',
                                         cursor: 'pointer',
                                         transition: '.4s'
                                     }}>House</ListItem>
-                                    <ListItem onClick={handleSelect} sx={{
+                                    <ListItem onClick={() => {setFilters({...filters, type: 'APARTMENT'})}} sx={{
                                         textAlign: 'center',
                                         padding: '10px',
                                         cursor: 'pointer',
@@ -241,7 +241,7 @@ const PropertiesFilters = () => {
                     <Box>
                         <Box onChange={handleChange} className="select" 
                             sx={{
-                                width: '200px',
+                                width: '270px',
                                 height: '100%',
                                 display: 'flex',
                                 position: 'relative',
@@ -265,7 +265,7 @@ const PropertiesFilters = () => {
                     <Box>
                         <Box className="select" 
                             sx={{
-                                width: '200px',
+                                width: '230px',
                                 height: '100%',
                                 display: 'flex',
                                 position: 'relative',
@@ -273,7 +273,7 @@ const PropertiesFilters = () => {
                                 alignItems: 'center',
                                 gap: '1.2rem'
                             }}>
-                            Price
+                            Price(MAX.)
                             <Slider 
                             id="price-slider"
                             valueLabelDisplay="auto"
@@ -338,6 +338,9 @@ const PropertiesFilters = () => {
                                 fontFamily: 'Raleway, serif',
                                 textTransform: 'lowercase',
                                 padding: '2px',
+                                position: 'absolute',
+                                right: '1.5rem',
+                                bottom: '-1.7rem',
                                 ":hover": {
                                     background: 'transparent'
                                 }
