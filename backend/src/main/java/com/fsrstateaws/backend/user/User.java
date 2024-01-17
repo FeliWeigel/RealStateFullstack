@@ -1,6 +1,7 @@
 package com.fsrstateaws.backend.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fsrstateaws.backend.entities.OperationRegister;
 import com.fsrstateaws.backend.security.jwt.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,6 +40,9 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Token> tokens;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<OperationRegister> OperationRegisters;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

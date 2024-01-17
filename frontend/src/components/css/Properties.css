@@ -33,6 +33,19 @@
 }
 
 .property-details-img {
-    width: 300px;
-    height: 200px;
+    width: 450px;
+    height: auto;
+}
+
+.img-sec {
+    width: 110px;
+    height: auto;
+    background-color: #fff;
+    opacity: .65;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.img-sec:hover {
+    opacity: 1;
 }

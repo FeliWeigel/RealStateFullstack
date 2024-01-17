@@ -278,8 +278,8 @@ const PropertiesFilters = () => {
                             id="price-slider"
                             valueLabelDisplay="auto"
                             valueLabelFormat={valueLabelFormat}
-                            min={5000.00}
-                            max={1000000.00}
+                            min={8000.00}
+                            max={14000000.00}
                             onChange={(e, value) => setFilters({ ...filters, price: value })}
                             sx={{
                                 color: '#fff',
