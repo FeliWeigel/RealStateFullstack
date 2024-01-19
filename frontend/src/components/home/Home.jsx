@@ -5,6 +5,7 @@ import Nav from "../nav/Nav"
 import { Box, Typography } from "@mui/material"
 
 import logo from "../../assets/images/logo.png"
+import { Link } from "react-router-dom"
 
 
 const Home = () => {
@@ -57,7 +58,7 @@ const Home = () => {
             </Typography>
 
             <Box display={'flex'} justifyContent={'center'} gap={'1rem'} marginTop={'.8rem'}>
-              <button className="home-link home-link-1">View Properties</button>
+              <Link to="/properties/all"><button className="home-link home-link-1">View Properties</button></Link>
               <button className="home-link home-link-2">Check Featured</button>
             </Box>
           </Box>

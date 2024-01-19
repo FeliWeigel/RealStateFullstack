@@ -56,14 +56,14 @@ const UploadPropertyForm = () => {
 
     return (
         <Box 
-        height={'160vh'}
+        height={'170vh'}
         sx={{
             background: 'rgba(0,0,0, 0.93)'
         }}>
             <Nav/>
             <Box 
                 height={'90%'}
-                paddingTop={'5rem'}
+                paddingTop={'4rem'}
                 position={'relative'}
             >
                 <Typography 

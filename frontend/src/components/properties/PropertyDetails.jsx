@@ -86,10 +86,21 @@ const PropertyDetails = () => {
                 <Typography 
                     typography={'h4'} 
                     fontSize={'1.7rem'}
-                    marginBottom={'.3rem'} 
+                    marginBottom={'.4rem'} 
                     fontWeight={'600'} 
                     fontFamily={'Raleway, serif'}
                     color={'#fff'}
+                    position={"relative"}
+                    sx={{
+                      ":before": {
+                        content: "''",
+                        position: 'absolute',
+                        width: '50px',
+                        height: '1.5px',
+                        background: '#fff',
+                        bottom: '-.2rem'
+                      }
+                    }}
                 >
                   {property.name}
                 </Typography>
@@ -99,18 +110,18 @@ const PropertyDetails = () => {
                     fontWeight={'400'} 
                     fontFamily={'Raleway, serif'}
                     color={'rgba(255,255,255, .85)'}
-                    marginBottom={'.2rem'}
+                    marginBottom={'.15rem'}
                 >
                   {property.location}
                 </Typography>
                 <Typography 
                     typography={'p'} 
-                    fontSize={'1.1rem'} 
+                    fontSize={'1.3rem'} 
                     fontWeight={'400'} 
                     color={'rgba(255,255,255, .9)'}
                     marginBottom={'.5rem'}
                 >
-                  ${property.price}
+                  Estimated price: ${property.price} ({property.onSale ? "Sale" : "Rent"})
                 </Typography>
                 
                 <Typography 

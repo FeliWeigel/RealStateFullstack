@@ -18,6 +18,12 @@ body {
     font-family: 'Raleway', sans-serif;
 }
 
+input, textarea {
+    outline: none;
+    border: none;
+}
+
+
 .text-display-none {
     opacity: 0;
 }

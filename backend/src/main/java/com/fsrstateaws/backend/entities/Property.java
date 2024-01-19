@@ -1,11 +1,13 @@
 package com.fsrstateaws.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -22,13 +24,12 @@ import java.util.Date;
 @Data
 @AllArgsConstructor@NoArgsConstructor
 public class Property{
-
     @Id
     @GeneratedValue
     private Long propertyId;
+
     @Column(unique = true)
     private String propertyImageId;
-
     private Boolean hasPool;
     private Integer floors;
     private String name;

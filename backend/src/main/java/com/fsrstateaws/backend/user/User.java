@@ -22,7 +22,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor @NoArgsConstructor
 public class User implements UserDetails {
-
     @Id
     @GeneratedValue
     private Long id;
@@ -39,10 +38,6 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<Token> tokens;
-
-    @OneToMany(mappedBy = "user")
-    @JsonIgnore
-    private List<OperationRegister> OperationRegisters;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
