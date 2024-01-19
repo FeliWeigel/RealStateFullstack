@@ -11,7 +11,7 @@ export const config = () => {
 }
 
 export const userOperation = (emailRequest, {propertyId}) => {
-    const url = ApiUrlBase + `/operations/new/${propertyId}`
+    const url = `${ApiUrlBase}/operations/new/${propertyId}`
 
     return axios.post(url, emailRequest, config())
 }

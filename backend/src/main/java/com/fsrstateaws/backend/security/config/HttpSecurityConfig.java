@@ -45,7 +45,7 @@ public class HttpSecurityConfig{
                 .permitAll()
                 .requestMatchers("/api/v1/properties/upload/**", "/api/v1/properties/delete/**")
                 .hasAnyAuthority("ADMIN")
-                .requestMatchers("/api/v1/operations/all/**", "/api/v1/operations/delete/**")
+                .requestMatchers("/api/v1/operations/**")
                 .hasAnyAuthority("ADMIN")
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()

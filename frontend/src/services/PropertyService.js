@@ -11,36 +11,36 @@ export const config = () => {
 }
 
 export const uploadProperty = (property) => {
-    const url = ApiUrlBase + `/properties/upload`    
+    const url = `${ApiUrlBase}/properties/upload`    
     return axios.post(url, property, config())
 }
 
 export const uploadPropertyImage = (propertyId, file) => {
-    const url = ApiUrlBase + `/properties/upload/upload-image/${propertyId}`
+    const url = `${ApiUrlBase}/properties/upload/upload-image/${propertyId}`
 
     return axios.post(url, file, config())
 }
 
 export const getAllProperties = () => {
-    const url = ApiUrlBase + `/properties/all`
+    const url = `${ApiUrlBase}/properties/all`
         
     return axios.get(url)
 }
 
 export const getPropertyImageUrl = (propertyId) => {
-    const url = ApiUrlBase + `/properties/all/${propertyId}/file`
+    const url = `${ApiUrlBase}/properties/all/${propertyId}/file`
 
     return url
 }
 
 export const getAllPropertyImages = ({propertyId}) => {
-    const url = ApiUrlBase + `/properties/all/${propertyId}/all-files`
+    const url = `${ApiUrlBase}/properties/all/${propertyId}/all-files`
 
     return axios.get(url)
 }
 
 export const getPropertyDetails = ({propertyId}) => {
-    const url = ApiUrlBase + `/properties/details/${propertyId}`
+    const url = `${ApiUrlBase}/properties/details/${propertyId}`
 
     return axios.get(url)
 }
