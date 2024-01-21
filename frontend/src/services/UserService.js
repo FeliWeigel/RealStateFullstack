@@ -10,6 +10,12 @@ export const config = () => {
     }
 }
 
+export const userDetails = () => {
+    const url = `${ApiUrlBase}/user/user_details`
+
+   return axios.get(url, config())
+}
+
 export const userOperation = (emailRequest, {propertyId}) => {
     const url = `${ApiUrlBase}/operations/new/${propertyId}`
 

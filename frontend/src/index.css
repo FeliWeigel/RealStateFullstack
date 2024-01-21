@@ -41,14 +41,3 @@ input, textarea {
 .footer-link:hover {
     color: #fff;
 }
-
-
-@keyframes text-display {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}

@@ -1,13 +1,24 @@
-import { Box, List, ListItem } from "@mui/material"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+
 import "../../index.css"
 import "../css/Nav.css"
 import logo from "../../assets/images/logo.png"
-import { Link } from "react-router-dom"
+
+import { Box, List, ListItem, Typography } from "@mui/material"
 import Icon from "react-icons-kit"
 import {logIn} from 'react-icons-kit/ionicons/logIn'
-import { useState } from "react"
+import {user_circle} from 'react-icons-kit/ikons/user_circle'
+
 const Nav = () => {
     const [navBg, setNavBg] = useState(false);
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        if(sessionStorage.getItem("access_token") != null){
+            setIsLogged(true)
+        }
+    },[])
 
     function handleScroll(){
         if(scrollY > 80){
@@ -76,9 +87,32 @@ const Nav = () => {
                     }}>Contact</ListItem>
                 </Link>
             </List>
-            <Link className="login-link" to='/auth/login'>
+            {
+                !isLogged ? 
+                <Link className="login-link" to='/auth/login'>
                 Log in <Icon icon={logIn} size={20}></Icon>
-            </Link>
+                </Link> 
+                :
+                <Link to="/user/profile">
+                    <Box 
+                        display={'flex'}
+                        flexDirection={'column'}
+                        alignItems={'center'}
+                        sx={{
+                            cursor: 'pointer'
+                        }}
+                    >
+                        <Icon className="account-icon" icon={user_circle} size={17}></Icon>
+                        <Typography 
+                            typography={'p'} 
+                            fontSize={'.9rem'}
+                            fontWeight={'400'}
+                            fontFamily={'Raleway, serif'}
+                            color={'#fff'}
+                        >Your account</Typography>
+                    </Box> 
+                </Link>
+            }
         </nav>
     )
 }
