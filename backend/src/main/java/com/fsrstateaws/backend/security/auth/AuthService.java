@@ -2,21 +2,30 @@ package com.fsrstateaws.backend.security.auth;
 
 import com.fsrstateaws.backend.exceptions.BusyCredentialsException;
 import com.fsrstateaws.backend.exceptions.InvalidPasswordException;
+import com.fsrstateaws.backend.exceptions.InvalidTokenException;
 import com.fsrstateaws.backend.exceptions.NullFieldsException;
 import com.fsrstateaws.backend.security.jwt.JwtService;
 import com.fsrstateaws.backend.security.jwt.Token;
 import com.fsrstateaws.backend.security.jwt.TokenRepository;
 import com.fsrstateaws.backend.user.Role;
+import com.fsrstateaws.backend.user.UpdatePasswordRequest;
 import com.fsrstateaws.backend.user.User;
 import com.fsrstateaws.backend.user.UserRepository;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,6 +33,10 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class AuthService {
 
+    @Value("${spring.mail.username}")
+    private String email;
+
+    private final JavaMailSender sender;
     private final TokenRepository tokenRepository;
     private final UserRepository userRepository;
     private final JwtService jwtService;
@@ -149,4 +162,88 @@ public class AuthService {
 
     }
 
+    public Object updatePassword(String token, UpdatePasswordRequest request){
+        Token tokenSaved = tokenRepository.findByToken(token).orElse(null);
+        if(tokenSaved == null){
+            throw new InvalidTokenException("Token not found.");
+        }
+
+        String userEmail = jwtService.extractUsername(token);
+        User user = userRepository.findByEmail(userEmail).orElse(null);
+        if(user == null || userEmail == null){
+            throw new UsernameNotFoundException("User " + userEmail + " not found.");
+        }
+
+        List<Token> userTokens = tokenRepository.allValidTokensByUser(user.getId());
+        if(!userTokens.contains(tokenSaved)){
+            throw new InvalidTokenException("Token invalid for user: " + userEmail);
+        } else if(request.getOldPassword().isBlank() || request.getNewPassword().isBlank()
+                || request.getConfirmNewPassword().isBlank()) {
+
+            return new NullFieldsException("Error! The fields cannot be null. Please try again");
+        } else if(!passwordEncoder.matches(request.getOldPassword(), user.getPassword())){
+            return new InvalidPasswordException("Error! The old password sent is incorrect.");
+        } else if(!request.getNewPassword().equals(request.getConfirmNewPassword())){
+            return new InvalidPasswordException("Error! The passwords must match.");
+        } else if(!isValidPassword(request.getNewPassword())){
+            return new InvalidPasswordException("Error! The password must contain a capital letter, symbol and number.");
+        } else if(request.getNewPassword().length() < 6){
+            return new InvalidPasswordException("Error! The password must contain six digits or more.");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+        return "Your password has been updated correctly!";
+    }
+
+    public Object sendEmailForRecover(String userEmail) throws MessagingException {
+        User user = userRepository.findByEmail(userEmail).orElse(null);
+        if(user == null){
+            throw new UsernameNotFoundException("User " + userEmail + " not found.");
+        }
+
+        String recoverToken = jwtService.generateToken(user);
+
+        MimeMessage message = sender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);;
+        helper.setFrom(email);
+        helper.setTo(userEmail);
+        helper.setSubject("Request for modification of password");
+        helper.setText("Hi, " + user.getFirstname() + "! We have received your request to change your password. Click on the link below to access the system. If it wasn't you, please dismiss this email and contact the support team soon. \n" +
+                "Best regards. \n"  +
+                "Real State. \n" +
+                "\n" +
+                "Link: http://localhost:5173/user/up_request/pass/" + recoverToken
+        );
+
+        sender.send(message);
+        return "We have sent a request for update to your email box.";
+    }
+
+    public Object recoverPassword(String recoverToken, UpdatePasswordRequest request){
+        if(recoverToken.isBlank() || jwtService.isTokenExpired(recoverToken)){
+            throw new InvalidTokenException("Invalid token!");
+        }
+        if(request.getNewPassword().isBlank() || request.getConfirmNewPassword().isBlank()){
+            return new NullFieldsException("Error! The fields cannot be null. Please try again");
+        }
+        String userEmail = jwtService.extractUsername(recoverToken);
+        User user = userRepository.findByEmail(userEmail).orElse(null);
+
+        if(userEmail.isBlank() || user == null){
+            throw new UsernameNotFoundException("User not found.");
+        }
+
+        if(!request.getNewPassword().equals(request.getConfirmNewPassword())){
+            return new InvalidPasswordException("Error! The passwords must match.");
+        } else if(!isValidPassword(request.getNewPassword())){
+            return new InvalidPasswordException("Error! The password must contain a capital letter, symbol and number.");
+        } else if(request.getNewPassword().length() < 6){
+            return new InvalidPasswordException("Error! The password must contain six digits or more.");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+        return "Your password has been updated correctly!";
+    }
 }
