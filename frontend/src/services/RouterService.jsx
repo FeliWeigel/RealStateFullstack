@@ -6,6 +6,9 @@ import UploadPropertyPage from "../pages/UpPropertyPage"
 import PropertiesPage from "../pages/PropertiesPage"
 import PropertyDetailsPage from "../pages/PropertyDetailsPage"
 import UserProfilePage from "../pages/UserProfilePage"
+import UpdatePasswordForm from "../components/user/UpdatePasswordForm"
+import RecoverRequestForm from "../components/user/RecoverRequestForm"
+import RecoverPasswordForm from "../components/user/RecoverPasswordForm"
 
 const RouterService = () => {
   return (
@@ -17,6 +20,9 @@ const RouterService = () => {
         <Route exact path="/properties/all" element={<PropertiesPage/>}></Route>
         <Route exact path="/properties/details/:propertyId" element={<PropertyDetailsPage/>}></Route>
         <Route exact path="/user/profile" element={<UserProfilePage/>}></Route>
+        <Route exact path="/user/update/pass" element={<UpdatePasswordForm/>}></Route>
+        <Route exact path="/user/recover/request" element={<RecoverRequestForm/>}></Route>
+        <Route exact path="/user/recover/recover_pass/:token" element={<RecoverPasswordForm/>}></Route>
     </Routes>
   )
 }

@@ -1,6 +1,7 @@
 import { Alert, Box, Typography } from "@mui/material"
 import "../../index.css"
 import "../css/Properties.css"
+import "../css/Forms.css"
 import { useState } from "react"
 import { userOperation } from "../../services/UserService"
 import { useParams } from "react-router-dom"
@@ -41,6 +42,7 @@ const PropertyOperation = () => {
   return (
     <Box
         id="property-op-bg"
+        className="forms-bg"
         height={'auto'}
         minHeight={'95vh'}
         padding={'1.7rem 2.5rem'}
@@ -86,7 +88,7 @@ const PropertyOperation = () => {
 
         <input 
           onChange={handleChange}
-          className="operation-input operation-to"
+          className="form-input"
           type="text" 
           name="to" 
           placeholder="Your email"
@@ -94,18 +96,18 @@ const PropertyOperation = () => {
           </input>
         <textarea 
           onChange={handleChange}
-          className="operation-input operation-text"
+          className="form-input"
           name="description" 
           placeholder="Can you leave a comment here.."
           ></textarea>
 
-        <button type="submit" className="operation-button">Send</button>
+        <button type="submit" className="form-button">Send</button>
         
         {
           success && !error && successMessage != null ? 
-          <Alert className="operation-alert" severity="success">{successMessage}</Alert>
+          <Alert className="form-alert" severity="success">{successMessage}</Alert>
           : !success && error && successMessage === null ?
-          <Alert className="operation-alert" severity="error">Check if email is correct and try again.</Alert>
+          <Alert className="form-alert" severity="error">Check if email is correct and try again.</Alert>
           : null
         }
       </Box>

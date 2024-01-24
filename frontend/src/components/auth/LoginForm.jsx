@@ -113,6 +113,9 @@ export default class LoginForm extends React.Component{
                         <TextField name="email" type="email" label="email" onChange={this.handleChange}></TextField>
                         <TextField name="password" type="password" label="password" onChange={this.handleChange}></TextField>
                         
+                        <Link className="to-recover-link" to="/user/recover/request">
+                                Forgot your password?
+                        </Link>
                         <Button type="submit" onClick={this.handleLogin}
                             sx={{
                                 width: '45%',
@@ -127,6 +130,7 @@ export default class LoginForm extends React.Component{
                             You still {`don't`} have an account? create one here!
                         </Link>
                     </Box>
+
 
                     {
                         this.state.error && this.state.successMsg == "" && this.state.errorMsg.startsWith("Warning!") ? <Alert className="auth-alert auth-alert-login" severity="warning">{this.state.errorMsg}</Alert> 

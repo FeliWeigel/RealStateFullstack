@@ -26,17 +26,17 @@ public class UserController {
     public ResponseEntity<Object> updateUserPassword(@RequestHeader(name = "Authorization") String authHeader,
                                                      @RequestBody UpdatePasswordRequest request){
         String userToken = extractToken(authHeader);
-        return new ResponseEntity<>(authService.updatePassword(userToken, request), HttpStatus.OK);
+        return authService.updatePassword(userToken, request);
     }
 
     @PostMapping("/update/request")
     public ResponseEntity<Object> sendRequestForRecover(@RequestParam String email) throws MessagingException {
-        return new ResponseEntity<>(authService.sendEmailForRecover(email), HttpStatus.OK);
+        return authService.sendEmailForRecover(email);
     }
 
     @PostMapping("/update/recover_pass")
     public ResponseEntity<Object> recoverUserPassword(@RequestParam String token, @RequestBody UpdatePasswordRequest request){
-        return new ResponseEntity<>(authService.recoverPassword(token, request), HttpStatus.OK);
+        return authService.recoverPassword(token, request);
     }
 
     private String extractToken(String authorizationHeader) {

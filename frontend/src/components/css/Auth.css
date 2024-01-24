@@ -35,14 +35,16 @@
     background-color: rgba(0,0,0, .6);
 }
 
-.to-login-link, .to-register-link {
+.to-login-link, .to-register-link, 
+.to-recover-link {
     color: rgba(0,0,0, .6);
     transition: .3s;
-    text-align: center;
     font-family: 'lora', serif;
+    text-align: center;
 }
 
-.to-login-link:hover, .to-register-link:hover {
+.to-login-link:hover, .to-register-link:hover,
+.to-recover-link:hover {
     color: rgba(0,0,0, .9);
 }
 
@@ -58,4 +60,9 @@
     position: static;
     width: 390px;
     margin-top: 1rem;
+}
+
+.to-recover-link {
+    text-align: right;
+    margin-top: -10px;
 }

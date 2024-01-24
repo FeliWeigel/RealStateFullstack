@@ -52,46 +52,5 @@
 
 #property-op-bg {
     background-image: linear-gradient(rgba(0,0,0, .65), rgba(0,0,0, .80)), url(../../assets/images/home-2.png);
-    background-size: cover;
-    background-position: center;
 }
 
-.operation-input {
-    width: 80%;
-    background-color: transparent;
-    border: 1px solid rgba(255,255,255, .3);
-    padding: 1rem;
-    color: #fff;
-    font-family: Raleway, serif;
-    transition: .4s;
-}
-
-.operation-button {
-    background-color: #fff;
-    font-family: Raleway, serif;
-    padding: 5px 15px;
-    font-weight: 500;
-    color: rgb(18, 17, 17);
-    font-size: 1.1rem;
-    transition: .4s;
-}
-
-.operation-button:hover {
-    color: #fff;
-    background-color: rgba(0,0,0, .93);
-}
-
-.operation-input:focus {
-    border: 1px solid #fff;
-}
-
-.operation-text {
-    min-height: 170px;
-}
-
-.operation-alert {
-    width: 300px;
-    position: absolute;
-    bottom: -3.5rem;
-    opacity: .92;
-}
