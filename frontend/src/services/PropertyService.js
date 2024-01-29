@@ -5,8 +5,7 @@ export const config = () => {
     let token = sessionStorage.getItem("access_token")
     return {
         headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
+            Authorization: `Bearer ${token}`
         }
     }
 }
