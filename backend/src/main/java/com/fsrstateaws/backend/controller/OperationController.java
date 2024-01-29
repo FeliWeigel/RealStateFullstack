@@ -29,13 +29,6 @@ public class OperationController {
         return operationService.registerOperation(emailRequest, propertyId, userToken);
     }
 
-    private String extractToken(String authorizationHeader) {
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7);
-        }
-        return null;
-    }
-
     @GetMapping("/all")
     public ResponseEntity<List<OperationRegister>> getAllOperations(){
         return new ResponseEntity<>(operationService.getAllOperationRegisters(), HttpStatus.OK);
@@ -44,5 +37,12 @@ public class OperationController {
     @DeleteMapping("/delete/all")
     public void deleteAllOperations(){
         operationService.deleteAllRegisters();
+    }
+
+    private String extractToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7);
+        }
+        return null;
     }
 }

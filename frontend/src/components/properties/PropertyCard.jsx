@@ -1,18 +1,37 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react"
+
+import { Link } from "react-router-dom"
 import "../../index.css"
 import "../css/Properties.css"
 
-import { getPropertyImageUrl } from "../../services/PropertyService"
+import { addFollowToProperty, getPropertyImageUrl } from "../../services/PropertyService"
 
 import { Box, Button, Card, Typography } from "@mui/material"
+
 import Icon from "react-icons-kit"
 import {socialBuffer} from 'react-icons-kit/ionicons/socialBuffer'
 import {bath} from 'react-icons-kit/fa/bath'
 import {bed} from 'react-icons-kit/fa/bed'
 import {location} from 'react-icons-kit/icomoon/location'
-import { Link } from "react-router-dom"
+import {starEmpty} from 'react-icons-kit/icomoon/starEmpty'
+import {starFull} from 'react-icons-kit/icomoon/starFull'
 
 const PropertyCard = ({property}) => {
+    const [favorite, setFavorite] = useState(false)
+
+    const handleFollow = () => {
+        if(favorite){
+            setFavorite(false)
+        }else {
+            addFollowToProperty(property.propertyId)
+            .then(res => {
+                console.log(res.data)
+                setFavorite(true)
+            })
+            .catch(err => console.log(err))
+        }
+    }
 
     return (
         <Card sx={{
@@ -22,25 +41,37 @@ const PropertyCard = ({property}) => {
             border: '1px solid rgba(0,0,0, .93)'
         }}>
             
+            <Typography 
+                typography={'p'}
+                fontSize={'1.1rem'}
+                color={'#fff'}
+                position={'absolute'}
+                top={'1.2rem'}
+                right={'.5rem'}
+                padding={'1px 5px'}
+                sx={{background: 'rgba(0,0,0, .93)'}}
+            >
+                {property.onSale ? "On Sale" : "On Rent"}
+            </Typography>
+            
             <img className="property-img" src={getPropertyImageUrl(property.propertyId)} alt="Property Image" />
             <Box padding={'.5rem .7rem'}>
                 <Box
                 display={'flex'}
-                justifyContent={'space-between'}
                 alignItems={'center'}
+                gap={'.5rem'}
                 >
                     <Typography typography={'h5'}>
                         {property.name}
                     </Typography>
-                    <Typography 
-                        typography={'p'}
-                        fontSize={'1.1rem'}
-                        color={'#fff'}
-                        padding={'1px 5px'}
-                        sx={{background: 'rgba(0,0,0, .93)'}}
+                    <Icon
+                        className="fav-icon"
+                        size={21} 
+                        icon={favorite ? starFull : starEmpty}
+                        onClick={handleFollow}
                     >
-                        {property.onSale ? "On Sale" : "On Rent"}
-                    </Typography>
+
+                    </Icon>
                 </Box>
                 <Typography typography={'h6'} fontSize={'1rem'} color={'rgba(0,0,0, .7)'}>
                     <Icon className="card-icon" icon={location} size={18}></Icon>{property.location}

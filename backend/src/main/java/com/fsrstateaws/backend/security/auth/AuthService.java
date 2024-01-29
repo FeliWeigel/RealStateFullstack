@@ -11,8 +11,6 @@ import com.fsrstateaws.backend.user.Role;
 import com.fsrstateaws.backend.user.UpdatePasswordRequest;
 import com.fsrstateaws.backend.user.User;
 import com.fsrstateaws.backend.user.UserRepository;
-import io.jsonwebtoken.Jwt;
-import io.jsonwebtoken.JwtParser;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +25,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.List;

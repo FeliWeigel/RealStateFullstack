@@ -1,11 +1,14 @@
 package com.fsrstateaws.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fsrstateaws.backend.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.Set;
 
 
 @Entity
@@ -40,4 +43,5 @@ public class Property{
     private Integer bathrooms;
     private Double price;
     private PropertyType type;
+
 }

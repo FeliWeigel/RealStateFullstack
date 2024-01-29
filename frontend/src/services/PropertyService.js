@@ -5,7 +5,8 @@ export const config = () => {
     let token = sessionStorage.getItem("access_token")
     return {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
         }
     }
 }
@@ -55,4 +56,14 @@ export const deleteProperty = (propertyId) => {
     .catch(err => {
         console.log(err)
     })
+}
+
+export const addFollowToProperty = (propertyId) => {
+    const url = ApiUrlBase + `/properties/favorites/add/${propertyId}`
+    return axios.post(url, {}, config())
+}
+
+export const allFollowedProperties = () => {
+    const url = ApiUrlBase + `/properties/favorites/all`
+    return axios.get(url, config())
 }

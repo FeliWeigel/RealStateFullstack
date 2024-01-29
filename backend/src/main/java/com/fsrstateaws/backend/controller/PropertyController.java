@@ -66,4 +66,26 @@ public class PropertyController {
     public void deleteAll(){
         propertyService.deleteAllProperties();
     }
+
+    @PostMapping("/favorites/add/{propertyId}")
+    public ResponseEntity<Object> addPropertyToFavorite(
+            @PathVariable Long propertyId,
+            @RequestHeader(name = "Authorization") String authHeader
+    ){
+        String token = extractToken(authHeader);
+        return propertyService.followProperty(token, propertyId);
+    }
+
+    @GetMapping("/favorites/all")
+    public ResponseEntity<Object> allFavoritesByUser(@RequestHeader(name = "Authorization") String authHeader){
+        String token = extractToken(authHeader);
+        return propertyService.getFollowedProperties(token);
+    }
+
+    private String extractToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.substring(7);
+        }
+        return null;
+    }
 }
