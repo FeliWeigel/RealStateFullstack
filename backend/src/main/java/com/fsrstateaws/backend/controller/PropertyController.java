@@ -82,6 +82,11 @@ public class PropertyController {
         return propertyService.getFollowedProperties(token);
     }
 
+    @DeleteMapping("/favorites/all/delete")
+    public String deleteAllFollowedProperties(){
+        return propertyService.deleteAllFav();
+    }
+
     private String extractToken(String authorizationHeader) {
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             return authorizationHeader.substring(7);

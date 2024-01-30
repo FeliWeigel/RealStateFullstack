@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -23,6 +24,7 @@ public class HttpSecurityConfig{
     private final AuthenticationProvider authenticationProvider;
     private final SecurityAuthFilter securityAuthFilter;
     private final CorsConfigurationSource corsConfigurationSource;
+    private final LogoutService logoutService;
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
@@ -49,6 +51,8 @@ public class HttpSecurityConfig{
                 .hasAnyAuthority("ADMIN")
                 .requestMatchers("/api/v1/operations/**")
                 .hasAnyAuthority("ADMIN")
+                .requestMatchers("/api/v1/properties/favorites/all/delete")
+                .hasAnyAuthority("ADMIN")
                 .requestMatchers("/api/v1/auth/**")
                 .permitAll()
                 .requestMatchers("/swagger-ui/**")
@@ -63,6 +67,12 @@ public class HttpSecurityConfig{
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(securityAuthFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout()
+                .logoutUrl("/api/v1/auth/logout")
+                .addLogoutHandler(logoutService)
+                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
+                .logoutSuccessUrl("/api/v1/auth/login")
+                .and()
                 .build();
     }
 }

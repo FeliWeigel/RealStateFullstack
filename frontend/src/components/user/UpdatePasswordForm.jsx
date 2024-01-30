@@ -9,7 +9,7 @@ import { useState } from "react"
 
 const UpdatePasswordForm = () => {
     const [error, setError] = useState(false)
-    const [success, setSuccess] = useState(true)
+    const [success, setSuccess] = useState(false)
     const [errorMessage, setErrorMessage] = useState(null)
     const [updateRequest, setUpdateRequest] = useState({
         newPassword: "",

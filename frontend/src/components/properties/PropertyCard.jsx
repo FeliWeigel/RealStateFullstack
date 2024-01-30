@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Link } from "react-router-dom"
 import "../../index.css"
 import "../css/Properties.css"
 
-import { addFollowToProperty, getPropertyImageUrl } from "../../services/PropertyService"
+import { addFollowToProperty, allFollowedProperties, getPropertyImageUrl } from "../../services/PropertyService"
 
 import { Box, Button, Card, Typography } from "@mui/material"
 
@@ -18,7 +18,20 @@ import {starEmpty} from 'react-icons-kit/icomoon/starEmpty'
 import {starFull} from 'react-icons-kit/icomoon/starFull'
 
 const PropertyCard = ({property}) => {
-    const [favorite, setFavorite] = useState(false)
+    const [allFavorites, setAllFavorites] = useState([])
+    const [favorite, setFavorite] = useState(false) 
+
+    useEffect(() => {
+        if(sessionStorage.getItem("access_token") != null){
+            allFollowedProperties()
+            .then(res => {
+                setAllFavorites(res.data)
+                console.log(allFavorites)
+                console.log(property)
+            })
+            .catch(err => console.log(err))
+        }
+    },[])
 
     const handleFollow = () => {
         if(favorite){

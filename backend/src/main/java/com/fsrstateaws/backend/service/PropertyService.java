@@ -21,8 +21,6 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -177,6 +175,14 @@ public class PropertyService {
             return new ResponseEntity<>(new RuntimeException("Invalid token"), HttpStatus.NOT_FOUND);
         }
 
-        return null;
+        return new ResponseEntity<>(
+                followedPropertiesRepository.allFollowedPropertiesByUser(user.getId()),
+                HttpStatus.OK
+        );
+    }
+
+    public String deleteAllFav(){
+        followedPropertiesRepository.deleteAll();
+        return "Success!";
     }
 }

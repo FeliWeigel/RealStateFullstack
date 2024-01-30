@@ -36,3 +36,12 @@ export const userRecoverPassword = (recoverRequest, token) => {
     const url = `${ApiUrlBase}/user/update/recover_pass?token=${token}`
     return axios.post(url, recoverRequest)
 }
+
+export const userLogout = () => {
+    const url = `${ApiUrlBase}/auth/logout/`
+    return axios.post(url, config())
+    .then(() => {
+        sessionStorage.removeItem('access_token')
+    })
+    .catch(err => console.log(err))
+}
