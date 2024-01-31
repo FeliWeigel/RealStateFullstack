@@ -44,4 +44,8 @@ public class Property{
     private Double price;
     private PropertyType type;
 
+    @OneToMany(mappedBy = "property")
+    @JsonIgnore
+    private Set<FollowedProperty> followedProperties;
+
 }

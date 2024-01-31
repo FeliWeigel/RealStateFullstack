@@ -10,10 +10,10 @@ import java.util.Set;
 public interface FollowedPropertiesRepository extends JpaRepository<FollowedProperty, Long> {
 
     @Query(
-    value = """
-        select p from Property p
-        join FollowedProperty f_p on f_p.propertyId = p.propertyId
-        join User u on u.id = f_p.userId
+            value = """
+        SELECT fp.property FROM FollowedProperty fp \s
+        inner join User u on u.id = fp.user.id \s
+        where u.id = :id \s
     """)
-    Set<Property> allFollowedPropertiesByUser(Long userId);
+    Set<Property> allFollowedPropertiesByUser(Long id);
 }

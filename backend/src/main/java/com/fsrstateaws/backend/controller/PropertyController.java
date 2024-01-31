@@ -1,6 +1,7 @@
 package com.fsrstateaws.backend.controller;
 
 import com.fsrstateaws.backend.entities.Property;
+import com.fsrstateaws.backend.repository.FollowedPropertiesRepository;
 import com.fsrstateaws.backend.service.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import java.util.List;
 public class PropertyController {
 
     private final PropertyService propertyService;
-
+    private final FollowedPropertiesRepository followedPropertiesRepository;
     @PostMapping("/upload")
     public ResponseEntity<Object> uploadProperty(@RequestBody Property property){
         return propertyService.uploadProperty(property);
@@ -80,6 +81,11 @@ public class PropertyController {
     public ResponseEntity<Object> allFavoritesByUser(@RequestHeader(name = "Authorization") String authHeader){
         String token = extractToken(authHeader);
         return propertyService.getFollowedProperties(token);
+    }
+
+    @GetMapping("/favorites")
+    public Object all(){
+        return followedPropertiesRepository.findAll();
     }
 
     @DeleteMapping("/favorites/all/delete")

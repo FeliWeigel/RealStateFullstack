@@ -1,9 +1,6 @@
 package com.fsrstateaws.backend.security.auth;
 
-import com.fsrstateaws.backend.exceptions.BusyCredentialsException;
-import com.fsrstateaws.backend.exceptions.InvalidPasswordException;
-import com.fsrstateaws.backend.exceptions.InvalidTokenException;
-import com.fsrstateaws.backend.exceptions.NullFieldsException;
+import com.fsrstateaws.backend.exceptions.*;
 import com.fsrstateaws.backend.security.jwt.JwtService;
 import com.fsrstateaws.backend.security.jwt.Token;
 import com.fsrstateaws.backend.security.jwt.TokenRepository;
@@ -27,6 +24,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -108,7 +106,19 @@ public class AuthService {
             return new ResponseEntity<>(new InvalidPasswordException("Error! The password must contain a capital letter, symbol and number."), HttpStatus.BAD_REQUEST);
         }else if(!registerRequest.getPassword().equals(registerRequest.getRepeatPassword())){
             return new ResponseEntity<>(new InvalidPasswordException("Error! Passwords must much."), HttpStatus.BAD_REQUEST);
+        }else if(registerRequest.getBirthdate().getYear() > new Date().getYear()){
+            return new ResponseEntity<>(new InvalidCredentialsException("Error! The date entered is not valid."), HttpStatus.BAD_REQUEST);
+        }else if((new Date().getYear() - registerRequest.getBirthdate().getYear()) < 18){
+            return new ResponseEntity<>(new InvalidCredentialsException("Error! You must be over 18 years old to register."), HttpStatus.BAD_REQUEST);
+        }else if((new Date().getYear() - registerRequest.getBirthdate().getYear()) == 18 &&
+                registerRequest.getBirthdate().getMonth() > new Date().getMonth()){
+            return new ResponseEntity<>(new InvalidCredentialsException("Error! You must be over 18 years old to register."), HttpStatus.BAD_REQUEST);
+        }else if((new Date().getYear() - registerRequest.getBirthdate().getYear()) == 18 &&
+                registerRequest.getBirthdate().getMonth() == new Date().getMonth() &&
+                registerRequest.getBirthdate().getDay() > new Date().getDay()){
+            return new ResponseEntity<>(new InvalidCredentialsException("Error! You must be over 18 years old to register."), HttpStatus.BAD_REQUEST);
         }
+
         var user = User.builder()
                 .firstname(registerRequest.getFirstname())
                 .lastname(registerRequest.getLastname())

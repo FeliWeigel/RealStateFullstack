@@ -3,5 +3,6 @@ span {
 }
 
 .fav-img {
-
+    width: 25%;
+    object-fit: cover;
 }

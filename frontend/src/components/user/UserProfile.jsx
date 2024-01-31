@@ -28,7 +28,7 @@ const UserProfile = () => {
   return (
     <Box 
         height={'auto'}
-        minHeight={'110vh'}
+        minHeight={'105vh'}
         display={'flex'}
         alignItems={'center'}
         sx={{
@@ -39,20 +39,25 @@ const UserProfile = () => {
         {user ? 
           <Box 
             display={'flex'}
-            gap={'5rem'}
-            height={'80vh'} 
-            padding={'0 4rem'}
+            height={'105vh'}
+            width={'100%'}
           >
             <Box
               display={'flex'}
               flexDirection={'column'}
               rowGap={'.5rem'}
               color={'#fff'}
+              width={'45%'}
+              padding={'5rem 1.5rem 0rem 2rem'}
+              sx={{
+                background: 'rgba(0,0,0, .93)'
+              }}
             >
               <Typography 
                 typography={'h4'}
                 position={'relative'}
                 marginBottom={'1.5rem'}
+                fontSize={'2rem'}
                 sx={{
                   ":before": {
                     content: "''",
@@ -111,7 +116,7 @@ const UserProfile = () => {
                   sx={{
                     color: '#fff',
                     border: '1px solid #fff',
-                    width: '180px',
+                    width: '175px',
                     fontSize: '.8rem',
                     transition: '.4s',
                     ":hover": {
@@ -125,7 +130,7 @@ const UserProfile = () => {
                   sx={{
                     color: '#fff',
                     border: '1px solid #fff',
-                    width: '180px',
+                    width: '175px',
                     fontSize: '.8rem',
                     transition: '.4s',
                     ":hover": {
@@ -139,7 +144,7 @@ const UserProfile = () => {
                   sx={{
                     color: '#fff',
                     border: '1px solid #fff',
-                    width: '180px',
+                    width: '175px',
                     fontSize: '.8rem',
                     transition: '.4s',
                     ":hover": {
@@ -153,7 +158,7 @@ const UserProfile = () => {
                   sx={{
                     color: '#fff',
                     border: '1px solid #fff',
-                    width: '180px',
+                    width: '175px',
                     fontSize: '.8rem',
                     transition: '.4s',
                     ":hover": {
@@ -166,9 +171,32 @@ const UserProfile = () => {
             <Box
               display={'flex'}
               flexDirection={'column'}
-              rowGap={'.5rem'}
+              rowGap={'1rem'}
+              padding={'5rem 2rem 2rem 2rem'}
+              sx={{
+                background: 'rgba(0,0,0, .75)',
+                width: '100%',
+
+              }}
             >
-              <Typography typography={'h4'} color={'#fff'}>Your favorite properties</Typography>
+              <Typography
+                typography={'h4'}
+                position={'relative'}
+                marginBottom={'1.2rem'}
+                color={'#fff'}
+                fontSize={'2rem'}
+                sx={{
+                  ":before": {
+                    content: "''",
+                    position: 'absolute',
+                    height: '2px',
+                    width: '50px',
+                    background: '#fff',
+                    bottom: '-.1rem',
+                    left: '.15rem'
+                  }
+                }}
+              >Your favorite properties</Typography>
               {
                 followedProperties.length != 0 ? 
                 followedProperties.map(property => {
@@ -176,24 +204,43 @@ const UserProfile = () => {
                     <Card key={property.propertyId} 
                       sx={{
                         display: 'flex',
-                        width: '50%',
-                        height: '250px',
+                        width: '90%',
+                        alignItems:'center',                        height: '100px',
+                        background: 'transparent',
+                        boxShadow: '0px 0px 5px 0px rgba(255,255,255, .3)',
+                        position: 'relative'
                       }}
                     >
                       <img className="fav-img" src={getPropertyImageUrl(property.propertyId)}/>
                       <Box
                         padding={'1rem'}
                       >
-                        <Typography typography={'h5'}>
+                        <Typography color={'#fff'} typography={'h5'}>
                             {property.name}
                         </Typography>
-                        <Typography typography={'h6'}>
+                        <Typography color={'rgba(255,255,255, .65)'} typography={'h6'}>
                             {property.location}
                         </Typography>
-                        <Typography typography={'h5'}>
-                            {property.price}
+                        <Typography color={'#fff'} typography={'h5'} fontSize={'1.1rem'}>
+                            ${property.price}
                         </Typography>
                       </Box>
+                      <Link to={`/properties/details/${property.propertyId}`}>
+                        <Button 
+                          sx={{
+                            background: '#fff',
+                            position: 'absolute',
+                            bottom: '0',
+                            right: '0',
+                            borderRadius: '0',
+                            color: 'rgba(0,0,0, .9)',
+                            fontSize: '.7rem',
+                            ":hover": {
+                              background: 'rgba(140,140,140)'
+                            }
+                          }}
+                        >Explore</Button>
+                      </Link>
                     </Card>
                   )
                 })
@@ -202,6 +249,7 @@ const UserProfile = () => {
                     color={'rgba(255,255,255, .7)'}
                     fontSize={'1.5rem'}
                     textAlign={'center'}
+                    marginTop={'1rem'}
                     >Your favorite list is empty.</Typography>
               }
             </Box>

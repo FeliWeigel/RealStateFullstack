@@ -1,5 +1,7 @@
 package com.fsrstateaws.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fsrstateaws.backend.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +18,16 @@ public class FollowedProperty {
     @Id
     @GeneratedValue
     private Long id;
-    private Long userId;
-    private Long propertyId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "property_id")
+    @JsonIgnore
+    private Property property;
 }
 
 

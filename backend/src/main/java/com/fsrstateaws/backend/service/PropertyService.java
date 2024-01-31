@@ -149,8 +149,8 @@ public class PropertyService {
         Property propertySaved = propertyRepository.findById(propertyId).orElse(null);
         if(propertySaved != null){
             FollowedProperty followedProperty = FollowedProperty.builder()
-                    .propertyId(propertyId)
-                    .userId(user.getId())
+                    .user(user)
+                    .property(propertySaved)
                     .build();
             return new ResponseEntity<>(followedPropertiesRepository.save(followedProperty), HttpStatus.OK);
         }
