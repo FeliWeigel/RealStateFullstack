@@ -11,6 +11,7 @@ import { Box, Button, FormLabel, InputBase, List, ListItem, Slider } from "@mui/
 import Icon from "react-icons-kit"
 import {thinDown} from 'react-icons-kit/entypo/thinDown'
 import PropertiesList from "./PropertiesList"
+import Loading from "../loading/Loading"
 
 const PropertiesFilters = () => {
     const [search, setSearch] = useState(false)
@@ -25,15 +26,19 @@ const PropertiesFilters = () => {
         location: "",
         onSale: null
     })
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const fetchProperties = async () => {
             let allProperties = []
+            setLoading(true)
             await getAllProperties()
             .then(res => {
+                setLoading(false)
                 allProperties = res.data;
             })
             .catch(err => {
+                setLoading(false)
                 console.log(err)
             })
 
@@ -348,14 +353,20 @@ const PropertiesFilters = () => {
                         :null
                     }
                 </Box>
-                <Box
-                    display={'grid'}
-                    gridTemplateColumns={'repeat(3, 1fr)'}
-                    rowGap={'1.5rem'}
-                    columnGap={'2rem'}
-                >
-                    <PropertiesList properties={properties}/>
-                </Box>
+                {loading ? 
+                    <Box display={'flex'} height={'60vh'} justifyContent={'center'} alignItems={'center'}>
+                        <Loading size={25}/>
+                    </Box>
+                    : 
+                    <Box
+                        display={'grid'}
+                        gridTemplateColumns={'repeat(3, 1fr)'}
+                        rowGap={'1.5rem'}
+                        columnGap={'2rem'}
+                    >
+                        <PropertiesList properties={properties}/>
+                    </Box>
+                }
             </Box>
         </Box>
     )

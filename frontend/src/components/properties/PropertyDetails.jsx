@@ -8,14 +8,17 @@ import { getAllPropertyImages, getPropertyDetails, getPropertyImageUrl } from ".
 import Nav from "../nav/Nav"
 
 import { Box, Button, Typography } from "@mui/material"
+import Loading from "../loading/Loading"
 
 const PropertyDetails = () => {
     const propertyId = useParams('propertyId')
     const [property, setProperty] = useState({})
     const [images, setImages] = useState([])
     const [selectedImage, setSelectedImage] = useState(null);
-    
+    const [loading, setLoading] = useState(false)
+
     useEffect(() => {
+      setLoading(true)
       getPropertyDetails(propertyId)
       .then(res => {
         setProperty(res.data)
@@ -25,7 +28,10 @@ const PropertyDetails = () => {
       })
 
       getAllPropertyImages(propertyId)
-      .then(res => setImages(res.data))
+      .then(res => {
+        setLoading(false)
+        setImages(res.data)
+      })
       .catch(err => console.log(err))
     },[])
     
@@ -39,6 +45,18 @@ const PropertyDetails = () => {
       >
           <Nav/>
 
+          {loading ? 
+          <Box 
+            display={'flex'} 
+            height={'80vh'} 
+            width={'100%'} 
+            color={'#fff'} 
+            justifyContent={'center'} 
+            alignItems={'center'}
+          >
+            <Loading size={25}/>
+          </Box>
+          : 
           <Box 
             height={'110vh'}
             display={'flex'} 
@@ -152,6 +170,7 @@ const PropertyDetails = () => {
               </Box>
             </Box>
           </Box>
+          }
       </Box>
     )
 }

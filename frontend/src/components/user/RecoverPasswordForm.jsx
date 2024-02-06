@@ -6,6 +6,7 @@ import "../css/Properties.css"
 import { Alert, Box } from "@mui/material"
 import { useState } from "react"
 import { userRecoverPassword } from "../../services/UserService"
+import Loading from "../loading/Loading"
 
 const RecoverPasswordForm = () => {
     const [error, setError] = useState(false)
@@ -17,19 +18,24 @@ const RecoverPasswordForm = () => {
         confirmNewPassword: ""
     }) 
     let {token} = useParams('token')
+    const [loading, setLoading] = useState(false)
+
     const handleSubmit = (e) => {
         e.preventDefault()
+        setLoading(true)
         userRecoverPassword(updateRequest, token)
         .then(() => {
-          setSuccess(true)
-          setError(false)
-          setErrorMessage(null)
-          console.log(token)
+            setLoading(false)
+            setSuccess(true)
+            setError(false)
+            setErrorMessage(null)
+            console.log(token)
         })
         .catch(err => {
-          setSuccess(false)
-          setError(true)
-          setErrorMessage(err.response.data.message)
+            setLoading(false)
+            setSuccess(false)
+            setError(true)
+            setErrorMessage(err.response.data.message)
         })
     }
 
@@ -87,7 +93,7 @@ const RecoverPasswordForm = () => {
                 >
                 </input>
 
-                <button type="submit" className="form-button">Send</button>
+                <button type="submit" className="form-button">{loading ? <Loading size={18}/> : "Send"}</button>
                 
                 {
                 success && !error && errorMessage === null ? 

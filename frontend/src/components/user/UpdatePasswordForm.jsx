@@ -6,6 +6,7 @@ import "../css/Properties.css"
 
 import { Alert, Box } from "@mui/material"
 import { useState } from "react"
+import Loading from "../loading/Loading"
 
 const UpdatePasswordForm = () => {
     const [error, setError] = useState(false)
@@ -15,19 +16,23 @@ const UpdatePasswordForm = () => {
         newPassword: "",
         confirmNewPassword: ""
     })
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setLoading(true)
         userUpdatePassword(updateRequest)
         .then(() => {
-          setSuccess(true)
-          setError(false)
-          setErrorMessage(null)
+            setLoading(false)
+            setSuccess(true)
+            setError(false)
+            setErrorMessage(null)
         })
         .catch(err => {
-          setSuccess(false)
-          setError(true)
-          setErrorMessage(err.response.data.message)
+            setLoading(false)
+            setSuccess(false)
+            setError(true)
+            setErrorMessage(err.response.data.message)
         })
       }
 
@@ -93,7 +98,7 @@ const UpdatePasswordForm = () => {
                 >
                 </input>
 
-                <button type="submit" className="form-button">Send</button>
+                <button type="submit" className="form-button">{loading ? <Loading size={18}/> : "Send"}</button>
                 
                 {
                 success && !error && errorMessage === null ? 

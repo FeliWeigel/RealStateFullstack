@@ -1,28 +1,46 @@
 import { useEffect, useState } from "react"
 
+import { Link } from "react-router-dom"
 import "../../index.css"
 import "../css/User.css"
 
 import Nav from "../nav/Nav"
+import Loading from "../loading/Loading"
+import FollowedPropsPopUp from "../properties/FollowedPropsPopUp"
 import { userDetails, userLogout } from "../../services/UserService"
-
+import { allFollowedProperties, getPropertyImageUrl } from "../../services/PropertyService"
 
 import { Box, Button, Card, Typography } from "@mui/material"
-import { Link } from "react-router-dom"
-import { allFollowedProperties, getPropertyImageUrl } from "../../services/PropertyService"
+import Icon from "react-icons-kit"
+import {plus} from 'react-icons-kit/icomoon/plus'
+import {undo2} from 'react-icons-kit/icomoon/undo2'
 
 const UserProfile = () => {
   const [user, setUser] = useState(null)
   const [followedProperties, setFollowedProperties] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [viewPopUp, setViewPopUp] = useState(false)
+
+  const count = followedProperties.length - 3
+  let followedPropertiesArr = new Array()
+  followedPropertiesArr.push(followedProperties[0])
+  followedPropertiesArr.push(followedProperties[1])
+  followedPropertiesArr.push(followedProperties[2])
+
   useEffect(() => {
+    setLoading(true)
     userDetails()
     .then(res => {
+      setLoading(false)
       setUser(res.data)
       allFollowedProperties()
       .then(res => setFollowedProperties(res.data))
       .catch(err => console.log(err))
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      setLoading(false)
+      console.log(err)
+    })
   },[])
 
   return (
@@ -30,13 +48,14 @@ const UserProfile = () => {
         height={'auto'}
         minHeight={'105vh'}
         display={'flex'}
+        position={'relative'}
         alignItems={'center'}
         sx={{
             background: 'rgba(0,0,0, .93)'
         }}
     >
         <Nav/>
-        {user ? 
+        {user && !loading ? 
           <Box 
             display={'flex'}
             height={'105vh'}
@@ -172,11 +191,11 @@ const UserProfile = () => {
               display={'flex'}
               flexDirection={'column'}
               rowGap={'1rem'}
+              position={'relative'}
               padding={'5rem 2rem 2rem 2rem'}
               sx={{
                 background: 'rgba(0,0,0, .75)',
                 width: '100%',
-
               }}
             >
               <Typography
@@ -198,14 +217,15 @@ const UserProfile = () => {
                 }}
               >Your favorite properties</Typography>
               {
-                followedProperties.length != 0 ? 
-                followedProperties.map(property => {
+                followedPropertiesArr.length != 0 && followedProperties.length != 0  ? 
+                followedPropertiesArr.map((property) => {
                   return (
                     <Card key={property.propertyId} 
                       sx={{
                         display: 'flex',
                         width: '90%',
-                        alignItems:'center',                        height: '100px',
+                        alignItems:'center',                        
+                        height: '100px',
                         background: 'transparent',
                         boxShadow: '0px 0px 5px 0px rgba(255,255,255, .3)',
                         position: 'relative'
@@ -253,8 +273,71 @@ const UserProfile = () => {
                     >Your favorite list is empty.</Typography>
               }
             </Box>
+            {followedProperties.length > 3 ? 
+              <button
+                className="more-follow-btn"
+                onClick={() => setViewPopUp(true)}
+              >
+                <Icon className="more-follow-icon" icon={plus} size={18}>
+                  
+                </Icon>
+                <Typography typography={'p'} sx={{
+                    fontSize: '.7rem',
+                    color: '#fff',
+                    fontWeight: '600',
+                    background: 'rgba(255,0,0)',
+                    position: 'absolute',
+                    width: '15px',
+                    borderRadius: '50%',
+                    top: '-.6rem',
+                    right: '-.4rem'
+                  }}>{count}</Typography>
+              </button> 
+              :
+              null
+            }
           </Box> 
-          : null
+          : 
+            <Box 
+              display={'flex'} 
+              height={'60vh'} 
+              width={'100%'} 
+              color={'#fff'} 
+              justifyContent={'center'} 
+              alignItems={'center'}
+            >
+              <Loading size={25}/>
+            </Box>
+        }
+
+        {
+        viewPopUp ? 
+        <Box height={'100%'} width={'100%'} sx={{
+          background: 'rgba(0,0,0, .8)',
+          position: "absolute",
+          zIndex: '10000',
+          display: 'flex',
+          justifyContent: 'center'
+      }}>
+            <Button
+            onClick={() => setViewPopUp(false)}
+            sx={{
+                position: 'absolute',
+                top: '1rem',
+                left: '.8rem',
+                fontSize: '1.3rem',
+                color: '#fff',
+                display:'flex',
+                alignItems:'center',
+                gap: '.5rem'
+            }}
+            >
+              <Icon icon={undo2} size={22}></Icon>
+              Back
+          </Button>
+          <FollowedPropsPopUp properties={followedProperties}/>
+        </Box> 
+        : null
         }
     </Box>
   )

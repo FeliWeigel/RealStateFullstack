@@ -6,6 +6,7 @@ import "../css/Properties.css"
 
 import { Alert, Box, Typography } from "@mui/material"
 import { useState } from "react"
+import Loading from "../loading/Loading"
 
 const RecoverRequestForm = () => {
     const [error, setError] = useState(false)
@@ -13,21 +14,25 @@ const RecoverRequestForm = () => {
     const [successMessage, setSuccessMessage] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
     const [email, setEmail] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setLoading(true)
         userRecoverPassRequest(email)
         .then(res => {
-          setSuccess(true)
-          setError(false)
-          setSuccessMessage(res.data)
-          setErrorMessage(null)
+            setLoading(false)
+            setSuccess(true)
+            setError(false)
+            setSuccessMessage(res.data)
+            setErrorMessage(null)
         })
         .catch(err => {
-          setSuccess(false)
-          setError(true)
-          setSuccessMessage(null)
-          setErrorMessage(err.response.data.message)
+            setLoading(false)
+            setSuccess(false)
+            setError(true)
+            setSuccessMessage(null)
+            setErrorMessage(err.response.data.message)
         })
       }
 
@@ -84,7 +89,7 @@ const RecoverRequestForm = () => {
                     >
                     </input>
 
-                    <button type="submit" className="form-button">Send</button>
+                    <button type="submit" className="form-button">{loading ? <Loading size={18}/> : "Send"}</button>
                     
                     {
                     success && !error && successMessage !== null && errorMessage === null ? 

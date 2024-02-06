@@ -42,6 +42,7 @@ export const userLogout = () => {
     return axios.post(url, config())
     .then(() => {
         sessionStorage.removeItem('access_token')
+        location.reload()
     })
     .catch(err => console.log(err))
 }

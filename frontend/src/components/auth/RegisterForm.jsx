@@ -11,6 +11,7 @@ import logo from "../../assets/images/logo.png"
 import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import {undo2} from 'react-icons-kit/icomoon/undo2'
 import Icon from "react-icons-kit";
+import Loading from "../loading/Loading";
 
 export default class RegisterForm extends React.Component{
     state = {
@@ -24,7 +25,8 @@ export default class RegisterForm extends React.Component{
         }, 
         error: false,
         errorMsg: "",
-        successMsg: ""
+        successMsg: "",
+        loading: false
     }
 
     handleSubmit = (e) => {
@@ -42,9 +44,14 @@ export default class RegisterForm extends React.Component{
 
     handleRegister = () => {
         const url = ApiUrlBase + "/auth/register"
-        
+        this.setState({
+            loading: true
+        })
         axios.post(url, this.state.user)
         .then(res => {
+            this.setState({
+                loading: false
+            })
             if(res.data !== null){    
                 this.setState({
                     error: false,
@@ -55,6 +62,7 @@ export default class RegisterForm extends React.Component{
         })
         .catch(err => {
             this.setState({
+                loading: false,
                 error: true,
                 errorMsg: err.response.data.message,
                 successMsg: ""
@@ -141,7 +149,7 @@ export default class RegisterForm extends React.Component{
                                 ":hover": {
                                     background: 'rgba(0,0,0, .8)'
                                 }
-                            }}>Register</Button>
+                            }}>{this.state.loading ? <Loading size={18}/> : "Register"}</Button>
                         <Link className="to-login-link" to="/auth/login">
                             Do you already have an account? log in here!
                         </Link>

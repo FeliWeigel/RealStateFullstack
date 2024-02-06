@@ -11,6 +11,7 @@ import logo from "../../assets/images/logo.png"
 import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import {undo2} from 'react-icons-kit/icomoon/undo2'
 import Icon from "react-icons-kit";
+import Loading from "../loading/Loading";
 
 export default class LoginForm extends React.Component{
     state = {
@@ -20,7 +21,8 @@ export default class LoginForm extends React.Component{
         }, 
         error: false,
         errorMsg: "",
-        successMsg: ""
+        successMsg: "",
+        loading: false
     }
 
     handleSubmit = (e) => {
@@ -38,9 +40,14 @@ export default class LoginForm extends React.Component{
 
     handleLogin = () => {
         const url = ApiUrlBase + "/auth/login"
-        
+        this.setState({
+            loading: true
+        })
         axios.post(url, this.state.user)
         .then(res => {
+            this.setState({
+                loading: false
+            })
             if(res.data !== null){    
                 this.setState({
                     error: false,
@@ -52,6 +59,7 @@ export default class LoginForm extends React.Component{
         })
         .catch(() => {
             this.setState({
+                loading: false,
                 error: true,
                 errorMsg: "Warning! Incorrect credentials, please try again.",
                 successMsg: ""
@@ -125,7 +133,7 @@ export default class LoginForm extends React.Component{
                                 ":hover": {
                                     background: 'rgba(0,0,0, .8)'
                                 }
-                            }}>Log in</Button>
+                            }}>{this.state.loading ? <Loading size={18}/> : "Log in"}</Button>
                         <Link className="to-register-link" to="/auth/register">
                             You still {`don't`} have an account? create one here!
                         </Link>
