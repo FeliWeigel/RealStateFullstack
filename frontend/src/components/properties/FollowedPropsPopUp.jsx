@@ -15,7 +15,7 @@ const FollowedPropsPopUp = ({properties}) => {
         sx={{
             background: '#000',
             padding: '1rem 2rem',
-            height: '95vh',
+            height: 'auto',
             width: '80%',
             zIndex: '10000',
             marginTop: '1.5rem',

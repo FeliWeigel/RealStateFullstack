@@ -44,7 +44,39 @@ const UserProfile = () => {
   },[])
 
   return (
-    <Box 
+
+  <Box>
+    {
+      viewPopUp ? 
+      <Box height={'auto'} minHeight={'100vh'} width={'100%'} sx={{
+        background: 'rgba(0,0,0)',
+        position: "absolute",
+        padding: '1.2rem 2rem 3rem 2rem',
+        zIndex: '10000',
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
+          <Button
+          onClick={() => setViewPopUp(false)}
+          sx={{
+              position: 'absolute',
+              top: '1rem',
+              left: '.8rem',
+              fontSize: '1.3rem',
+              color: '#fff',
+              display:'flex',
+              alignItems:'center',
+              gap: '.5rem'
+          }}
+          >
+            <Icon icon={undo2} size={22}></Icon>
+            Back
+        </Button>
+        <FollowedPropsPopUp properties={followedProperties}/>
+      </Box> 
+      : 
+
+      <Box 
         height={'auto'}
         minHeight={'105vh'}
         display={'flex'}
@@ -53,7 +85,7 @@ const UserProfile = () => {
         sx={{
             background: 'rgba(0,0,0, .93)'
         }}
-    >
+      >
         <Nav/>
         {user && !loading ? 
           <Box 
@@ -308,36 +340,8 @@ const UserProfile = () => {
             >
               <Loading size={25}/>
             </Box>
-        }
-
-        {
-        viewPopUp ? 
-        <Box height={'100%'} width={'100%'} sx={{
-          background: 'rgba(0,0,0, .8)',
-          position: "absolute",
-          zIndex: '10000',
-          display: 'flex',
-          justifyContent: 'center'
-      }}>
-            <Button
-            onClick={() => setViewPopUp(false)}
-            sx={{
-                position: 'absolute',
-                top: '1rem',
-                left: '.8rem',
-                fontSize: '1.3rem',
-                color: '#fff',
-                display:'flex',
-                alignItems:'center',
-                gap: '.5rem'
-            }}
-            >
-              <Icon icon={undo2} size={22}></Icon>
-              Back
-          </Button>
-          <FollowedPropsPopUp properties={followedProperties}/>
-        </Box> 
-        : null
+          }
+        </Box>
         }
     </Box>
   )

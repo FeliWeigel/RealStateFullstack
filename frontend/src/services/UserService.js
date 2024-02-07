@@ -30,6 +30,7 @@ export const userUpdatePassword = (updateRequest) => {
 export const userRecoverPassRequest = (email) => {
     const url = `${ApiUrlBase}/user/update/request?email=${email}`
     return axios.post(url)
+
 }
 
 export const userRecoverPassword = (recoverRequest, token) => {
