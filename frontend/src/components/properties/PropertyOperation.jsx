@@ -45,7 +45,7 @@ const PropertyOperation = () => {
         className="forms-bg"
         height={'auto'}
         minHeight={'95vh'}
-        padding={'1.7rem 2.5rem'}
+        padding={'2.2rem 2.5rem'}
     >
       <Typography 
         typography={'h3'}
@@ -94,9 +94,9 @@ const PropertyOperation = () => {
           placeholder="Your email"
         >
           </input>
-        <textarea 
+        <textarea rows={8}
           onChange={handleChange}
-          className="form-input"
+          className="form-input input-text"
           name="description" 
           placeholder="Can you leave a comment here.."
           ></textarea>

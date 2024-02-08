@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -47,5 +48,22 @@ public class Property{
     @OneToMany(mappedBy = "property")
     @JsonIgnore
     private Set<FollowedProperty> followedProperties;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Property property = (Property) obj;
+        return Objects.equals(propertyId, property.propertyId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(propertyId);
+    }
 
 }

@@ -252,48 +252,52 @@ const UserProfile = () => {
                 followedPropertiesArr.length != 0 && followedProperties.length != 0  ? 
                 followedPropertiesArr.map((property) => {
                   return (
-                    <Card key={property.propertyId} 
-                      sx={{
-                        display: 'flex',
-                        width: '90%',
-                        alignItems:'center',                        
-                        height: '100px',
-                        background: 'transparent',
-                        boxShadow: '0px 0px 5px 0px rgba(255,255,255, .3)',
-                        position: 'relative'
-                      }}
-                    >
-                      <img className="fav-img" src={getPropertyImageUrl(property.propertyId)}/>
-                      <Box
-                        padding={'1rem'}
+                    <>
+                      {property != undefined ? 
+                        <Card key={property.propertyId} 
+                        sx={{
+                          display: 'flex',
+                          width: '90%',
+                          alignItems:'center',                        
+                          height: '100px',
+                          background: 'transparent',
+                          boxShadow: '0px 0px 5px 0px rgba(255,255,255, .3)',
+                          position: 'relative'
+                        }}
                       >
-                        <Typography color={'#fff'} typography={'h5'}>
-                            {property.name}
-                        </Typography>
-                        <Typography color={'rgba(255,255,255, .65)'} typography={'h6'}>
-                            {property.location}
-                        </Typography>
-                        <Typography color={'#fff'} typography={'h5'} fontSize={'1.1rem'}>
-                            ${property.price}
-                        </Typography>
-                      </Box>
-                      <Link to={`/properties/details/${property.propertyId}`}>
-                        <Button 
-                          sx={{
-                            background: '#fff',
-                            position: 'absolute',
-                            bottom: '0',
-                            right: '0',
-                            borderRadius: '0',
-                            color: 'rgba(0,0,0, .9)',
-                            fontSize: '.7rem',
-                            ":hover": {
-                              background: 'rgba(140,140,140)'
-                            }
-                          }}
-                        >Explore</Button>
-                      </Link>
-                    </Card>
+                        <img className="fav-img" src={getPropertyImageUrl(property.propertyId)}/>
+                        <Box
+                          padding={'1rem'}
+                        >
+                          <Typography color={'#fff'} typography={'h5'}>
+                              {property.name}
+                          </Typography>
+                          <Typography color={'rgba(255,255,255, .65)'} typography={'h6'}>
+                              {property.location}
+                          </Typography>
+                          <Typography color={'#fff'} typography={'h5'} fontSize={'1.1rem'}>
+                              ${property.price}
+                          </Typography>
+                        </Box>
+                        <Link to={`/properties/details/${property.propertyId}`}>
+                          <Button 
+                            sx={{
+                              background: '#fff',
+                              position: 'absolute',
+                              bottom: '0',
+                              right: '0',
+                              borderRadius: '0',
+                              color: 'rgba(0,0,0, .9)',
+                              fontSize: '.7rem',
+                              ":hover": {
+                                background: 'rgba(140,140,140)'
+                              }
+                            }}
+                          >Explore</Button>
+                        </Link>
+                      </Card>
+                      : null}
+                    </>
                   )
                 })
                 : <Typography 

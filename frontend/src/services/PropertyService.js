@@ -66,3 +66,8 @@ export const allFollowedProperties = () => {
     const url = ApiUrlBase + `/properties/favorites/all`
     return axios.get(url, config())
 }
+
+export const removeFollowToProperty = (propertyId) => {
+    const url = ApiUrlBase + `/properties/favorites/remove/${propertyId}`
+    return axios.delete(url, config())
+}

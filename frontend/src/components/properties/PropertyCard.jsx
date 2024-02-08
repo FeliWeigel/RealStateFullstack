@@ -5,7 +5,8 @@ import { Link } from "react-router-dom"
 import "../../index.css"
 import "../css/Properties.css"
 
-import { addFollowToProperty, allFollowedProperties, getPropertyImageUrl } from "../../services/PropertyService"
+import { addFollowToProperty, allFollowedProperties, 
+    getPropertyImageUrl, removeFollowToProperty } from "../../services/PropertyService"
 
 import { Box, Button, Card, Typography } from "@mui/material"
 
@@ -19,32 +20,50 @@ import {starFull} from 'react-icons-kit/icomoon/starFull'
 
 const PropertyCard = ({property}) => {
     const [allFavorites, setAllFavorites] = useState([])
-    const [favorite, setFavorite] = useState(false) 
+    const [favorite, setFavorite] = useState(false)
 
     useEffect(() => {
-        if(sessionStorage.getItem("access_token") != null){
+        const favoritesFromStorage = JSON.parse(localStorage.getItem("favorite_list"));
+        if (favoritesFromStorage) {
+            setAllFavorites(favoritesFromStorage);
+        }
+        if (sessionStorage.getItem("access_token") != null) {
             allFollowedProperties()
             .then(res => {
-                setAllFavorites(res.data)
-                console.log(allFavorites)
-                console.log(property)
+                localStorage.setItem("favorite_list", JSON.stringify(res.data));
+                setAllFavorites(res.data);
+                setFavorite(res.data.includes(property));
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
         }
-    },[])
+    }, []);
 
     const handleFollow = () => {
-        if(favorite){
-            setFavorite(false)
-        }else {
-            addFollowToProperty(property.propertyId)
-            .then(res => {
-                console.log(res.data)
-                setFavorite(true)
+        const updatedFavorites = [...allFavorites];
+        if (allFavorites.some(favorite => favorite.propertyId == property.propertyId) || favorite) {
+            removeFollowToProperty(property.propertyId)
+            .then(() => {
+                setFavorite(false);
+                const indexToRemove = updatedFavorites.findIndex(favorite => favorite.propertyId === property.propertyId);
+                if (indexToRemove != -1) {
+                    updatedFavorites.splice(indexToRemove, 1);
+                    setAllFavorites(updatedFavorites);
+                    localStorage.setItem("favorite_list", JSON.stringify(updatedFavorites));
+                }
             })
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
+        } else {
+            addFollowToProperty(property.propertyId)
+            .then(() => {
+                setFavorite(true);
+                updatedFavorites.push(property);
+                setAllFavorites(updatedFavorites);
+                localStorage.setItem("favorite_list", JSON.stringify(updatedFavorites));
+            })
+            .catch(err => console.log(err));
         }
-    }
+    };
+
 
     return (
         <Card sx={{
@@ -80,10 +99,9 @@ const PropertyCard = ({property}) => {
                     <Icon
                         className="fav-icon"
                         size={21} 
-                        icon={favorite ? starFull : starEmpty}
+                        icon={localStorage.getItem("favorite_list").includes(property.propertyId) || favorite ? starFull : starEmpty}
                         onClick={handleFollow}
                     >
-
                     </Icon>
                 </Box>
                 <Typography typography={'h6'} fontSize={'1rem'} color={'rgba(0,0,0, .7)'}>

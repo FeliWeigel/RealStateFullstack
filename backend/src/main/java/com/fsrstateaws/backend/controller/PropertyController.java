@@ -83,9 +83,13 @@ public class PropertyController {
         return propertyService.getFollowedProperties(token);
     }
 
-    @GetMapping("/favorites")
-    public Object all(){
-        return followedPropertiesRepository.findAll();
+    @DeleteMapping("/favorites/remove/{propertyId}")
+    public ResponseEntity<Object> removeFavoriteToProperty(
+            @PathVariable Long propertyId,
+            @RequestHeader(name = "Authorization") String authHeader
+    ){
+        String token = extractToken(authHeader);
+        return propertyService.unfollowProperty(token, propertyId);
     }
 
     @DeleteMapping("/favorites/all/delete")

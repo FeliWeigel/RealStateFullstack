@@ -21,6 +21,8 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -130,26 +132,16 @@ public class PropertyService {
     }
 
     public ResponseEntity<Object> followProperty(String userToken, Long propertyId){
-        if(userToken == null){
-            return new ResponseEntity<>(new RuntimeException("Token is null"), HttpStatus.BAD_REQUEST);
+        if(!validateUserToken(userToken)){
+            new ResponseEntity<>(new RuntimeException("User or token not found."), HttpStatus.NOT_FOUND);
         }
         String username = jwtService.extractUsername(userToken);
-        User user = userRepository.findByEmail(username).orElse(null);
-        Token tokenSaved = tokenRepository.findByToken(userToken).orElse(null);
-
-        if (user == null || tokenSaved == null) {
-            return new ResponseEntity<>(new RuntimeException("User or token not found."), HttpStatus.NOT_FOUND);
-        }
-
-        List<Token> allUserTokens = tokenRepository.allValidTokensByUser(user.getId());
-        if(!allUserTokens.contains(tokenSaved)){
-            return new ResponseEntity<>(new RuntimeException("Invalid token"), HttpStatus.NOT_FOUND);
-        }
+        var user = userRepository.findByEmail(username);
 
         Property propertySaved = propertyRepository.findById(propertyId).orElse(null);
         if(propertySaved != null){
             FollowedProperty followedProperty = FollowedProperty.builder()
-                    .user(user)
+                    .user(user.get())
                     .property(propertySaved)
                     .build();
             return new ResponseEntity<>(followedPropertiesRepository.save(followedProperty), HttpStatus.OK);
@@ -159,30 +151,67 @@ public class PropertyService {
     }
 
     public ResponseEntity<Object> getFollowedProperties(String userToken){
+        if(!validateUserToken(userToken)){
+            new ResponseEntity<>(new RuntimeException("User or token not found."), HttpStatus.NOT_FOUND);
+        }
+        String username = jwtService.extractUsername(userToken);
+        var user = userRepository.findByEmail(username);
+
+        return new ResponseEntity<>(
+                followedPropertiesRepository.allFollowedPropertiesByUser(user.get().getId()),
+                HttpStatus.OK
+        );
+    }
+
+    public ResponseEntity<Object> unfollowProperty(String userToken, Long propertyId){
+        if(!validateUserToken(userToken)){
+            new ResponseEntity<>(new RuntimeException("User or token not found."), HttpStatus.NOT_FOUND);
+        }
+        String username = jwtService.extractUsername(userToken);
+        var user = userRepository.findByEmail(username);
+
+        Property propertySaved = propertyRepository.findById(propertyId).orElse(null);
+        if(propertySaved != null){
+            Set<FollowedProperty> followedProperties = user.get().getFollowedProperties();
+            FollowedProperty followedProperty = followedProperties.stream()
+                    .filter(fp -> fp.getProperty().getPropertyId().equals(propertySaved.getPropertyId()))
+                    .filter(fp -> fp.getUser().getId().equals(user.get().getId()))
+                    .findFirst()
+                    .orElse(null);
+
+            if(followedProperty != null){
+                followedPropertiesRepository.delete(followedProperty);
+                return new ResponseEntity<>("Unfollowed property successfully!", HttpStatus.OK);
+            }else {
+                return new ResponseEntity<>(new RuntimeException("Followed property not found!"), HttpStatus.NOT_FOUND);
+            }
+        }
+
+        return new ResponseEntity<>("Property not found.",HttpStatus.BAD_REQUEST);
+    }
+
+    public String deleteAllFav(){
+        followedPropertiesRepository.deleteAll();
+        return "Success!";
+    }
+
+    private Boolean validateUserToken(String userToken){
         if(userToken == null){
-            return new ResponseEntity<>(new RuntimeException("Token is null"), HttpStatus.BAD_REQUEST);
+            return false;
         }
         String username = jwtService.extractUsername(userToken);
         User user = userRepository.findByEmail(username).orElse(null);
         Token tokenSaved = tokenRepository.findByToken(userToken).orElse(null);
 
         if (user == null || tokenSaved == null) {
-            return new ResponseEntity<>(new RuntimeException("User or token not found."), HttpStatus.NOT_FOUND);
+            return false;
         }
 
         List<Token> allUserTokens = tokenRepository.allValidTokensByUser(user.getId());
         if(!allUserTokens.contains(tokenSaved)){
-            return new ResponseEntity<>(new RuntimeException("Invalid token"), HttpStatus.NOT_FOUND);
+            return false;
         }
 
-        return new ResponseEntity<>(
-                followedPropertiesRepository.allFollowedPropertiesByUser(user.getId()),
-                HttpStatus.OK
-        );
-    }
-
-    public String deleteAllFav(){
-        followedPropertiesRepository.deleteAll();
-        return "Success!";
+        return true;
     }
 }

@@ -151,7 +151,7 @@ const PropertyDetails = () => {
                   {property.description} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Maxime suscipit inventore illo quibusdam voluptatibus culpa quidem, fuga quam, debitis quaerat perferendis. Delectus, quam. Qui, recusandae laboriosam libero, mollitia rem, ex sint accusamus cum ducimus deleniti fuga dignissimos inventore voluptatem ipsum. Lorem ipsum dolor sit.
                 </Typography>
 
-                <Link to={`/properties/contact/${property.propertyId}`}>
+                <Link to={`/properties/details/contact/${property.propertyId}`}>
                   <Button sx={{
                       color: 'rgba(0,0,0, .9)',
                       background: '#fff',
