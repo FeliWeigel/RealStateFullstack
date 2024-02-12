@@ -6,12 +6,14 @@ import "../css/Properties.css"
 
 import Nav from "../nav/Nav"
 import { getAllProperties } from "../../services/PropertyService"
+import PropertiesList from "./PropertiesList"
+import Loading from "../loading/Loading"
 
 import { Box, Button, FormLabel, InputBase, List, ListItem, Slider } from "@mui/material"
 import Icon from "react-icons-kit"
 import {thinDown} from 'react-icons-kit/entypo/thinDown'
-import PropertiesList from "./PropertiesList"
-import Loading from "../loading/Loading"
+import {arrowRight2} from 'react-icons-kit/icomoon/arrowRight2'
+import {cross} from 'react-icons-kit/icomoon/cross'
 
 const PropertiesFilters = () => {
     const [search, setSearch] = useState(false)
@@ -27,6 +29,7 @@ const PropertiesFilters = () => {
         onSale: null
     })
     const [loading, setLoading] = useState(false)
+    const [filtersMenu, setFiltersMenu] = useState(false)
 
     useEffect(() => {
         const fetchProperties = async () => {
@@ -122,16 +125,33 @@ const PropertiesFilters = () => {
         >
             <Nav/>
             <Box padding={'5.5rem 2rem 3rem 2rem'}>
+                <Box id="filters-select" sx={{      
+                    marginBottom: '2rem',
+                    display: 'flex',
+                    width: '120px'
+                }}>
+                    Filters
+                    <Icon     
+                        className="icon-filters-select" 
+                        icon={arrowRight2} 
+                        size={17}
+                        onClick={() => setFiltersMenu(true)}
+                    >
+                    </Icon> 
+                </Box>
                 <Box 
+                    id="filters"
                     display={'flex'}
+                    flexWrap={'wrap'}
                     gap={'1rem'}
                     alignItems={'center'}
                     marginBottom={'2rem'}
-                    height={'2.5rem'}
+                    height={'auto'}
+                    width={'100%'}
                     position={'relative'}
                 >
-                    <Box height={'100%'}>
-                        <Box id="select-type" onClick={handleSelect} className="select" 
+                    <Box id="select-type" height={'100%'}>
+                        <Box onClick={handleSelect} className="select" 
                             sx={{
                                 width: '120px',
                                 display: 'flex',
@@ -346,6 +366,237 @@ const PropertiesFilters = () => {
                                 position: 'absolute',
                                 right: '1.5rem',
                                 bottom: '-1.7rem',
+                                ":hover": {
+                                    background: 'transparent'
+                                }
+                            }}>(Undo filters)</Button>
+                        :null
+                    }
+                </Box>
+                <Box 
+                    id="filters-menu"
+                    sx={{
+                        left: `${filtersMenu ? '0' : '-100%'}`
+                    }}
+                >
+                    <Icon 
+                        className="close-filters" 
+                        icon={cross} 
+                        size={15}
+                        onClick={() => setFiltersMenu(false)}
+                    ></Icon>
+                    <Box id="select-type" height={'100%'}>
+                        <Box onClick={handleSelect} className="select" 
+                            sx={{
+                                width: '120px',
+                                display: 'flex',
+                                position: 'relative',
+                                padding: '10px',
+                                alignItems: 'center',
+                                justifyContent: 'space-between'
+                            }}>
+                            Type
+                            <Icon icon={thinDown} size={15}></Icon>
+                        </Box>
+                        {
+                            selectType ? 
+                                <List 
+                                sx={{
+                                    background: 'rgba(0,0,0, .97)',
+                                    position: 'absolute',
+                                    width: '120px',
+                                    height: 'auto',
+                                    transition: '.4s',
+                                    zIndex: '1000'
+                                }}>
+                                    <ListItem onClick={() => {setFilters({...filters, type: 'HOUSE'})}} sx={{
+                                        textAlign: 'center',
+                                        padding: '10px',
+                                        cursor: 'pointer',
+                                        transition: '.4s'
+                                    }}>House</ListItem>
+                                    <ListItem onClick={() => {setFilters({...filters, type: 'APARTMENT'})}} sx={{
+                                        textAlign: 'center',
+                                        padding: '10px',
+                                        cursor: 'pointer',
+                                        transition: '.4s'
+                                    }}>Apartment</ListItem>
+                                </List>
+                            : null
+                        }
+                    </Box>
+
+                    <Box>
+                        <Box className="select" 
+                            sx={{
+                                width: '110px',
+                                height: '100%',
+                                display: 'flex',
+                                position: 'relative',
+                                padding: '5px 10px',
+                                alignItems: 'center',
+                                gap: '.6rem'
+                            }}>
+                            Floors
+                            <InputBase name="floors" onChange={handleChange} type="number" aria-valuemax={'10'} sx={{
+                                borderBottom: '1px solid rgba(255,255,255, .4)',
+                                padding: '0',
+                                height: '21px',
+                                marginTop: '.15rem',
+                                color: 'rgba(255,255,255, .9)',
+                                fontWeight: '400',
+                                fontFamily: 'Raleway, serif'
+                            }}></InputBase>
+                        </Box>
+                    </Box>
+
+                    <Box>
+                        <Box className="select" 
+                            sx={{
+                                width: '141px',
+                                height: '100%',
+                                display: 'flex',
+                                position: 'relative',
+                                padding: '5px 10px',
+                                alignItems: 'center',
+                                gap: '.6rem'
+                            }}>
+                            Bedrooms
+                            <InputBase name="bedrooms" onChange={handleChange} type="number" sx={{
+                                borderBottom: '1px solid rgba(255,255,255, .4)',
+                                padding: '0',
+                                height: '21px',
+                                marginTop: '.15rem',
+                                color: 'rgba(255,255,255, .9)',
+                                fontWeight: '400',
+                                fontFamily: 'Raleway, serif'
+                            }}></InputBase>
+                        </Box>
+                    </Box>
+
+                    <Box>
+                        <Box onChange={handleChange} className="select" 
+                            sx={{
+                                width: '145px',
+                                height: '100%',
+                                display: 'flex',
+                                position: 'relative',
+                                padding: '5px 10px',
+                                alignItems: 'center',
+                                gap: '.6rem'
+                            }}>
+                            Bathrooms
+                            <InputBase name="bathrooms" type="number" sx={{
+                                borderBottom: '1px solid rgba(255,255,255, .4)',
+                                padding: '0',
+                                height: '21px',
+                                marginTop: '.15rem',
+                                color: 'rgba(255,255,255, .9)',
+                                fontWeight: '400',
+                                fontFamily: 'Raleway, serif'
+                            }}></InputBase>
+                        </Box>
+                    </Box>
+
+                    <Box>
+                        <Box onChange={handleChange} className="select" 
+                            sx={{
+                                width: '270px',
+                                height: '100%',
+                                display: 'flex',
+                                position: 'relative',
+                                padding: '5px 10px',
+                                alignItems: 'center',
+                                gap: '.6rem'
+                            }}>
+                            Location
+                            <InputBase name="location" type="text" sx={{
+                                borderBottom: '1px solid rgba(255,255,255, .4)',
+                                padding: '0',
+                                height: '21px',
+                                marginTop: '.15rem',
+                                color: 'rgba(255,255,255, .9)',
+                                fontWeight: '400',
+                                fontFamily: 'Raleway, serif'
+                            }}></InputBase>
+                        </Box>
+                    </Box>
+
+                    <Box>
+                        <Box className="select" 
+                            sx={{
+                                width: '230px',
+                                height: '100%',
+                                display: 'flex',
+                                position: 'relative',
+                                padding: '5px 10px',
+                                alignItems: 'center',
+                                gap: '1.2rem'
+                            }}>
+                            Price(MAX.)
+                            <Slider 
+                            id="price-slider"
+                            valueLabelDisplay="auto"
+                            valueLabelFormat={valueLabelFormat}
+                            min={8000.00}
+                            max={14000000.00}
+                            onChange={(e, value) => setFilters({ ...filters, price: value })}
+                            sx={{
+                                color: '#fff',
+                                width: '120px',
+                                height: '2px'
+                            }}></Slider>
+                        </Box>
+                    </Box>
+
+                    <Box 
+                        display={'flex'}
+                        flexDirection={'column'}
+                    >
+                        <Box
+                            display={'flex'}
+                            gap={'.5rem'}
+                        >
+                            <InputBase 
+                                onClick={() => setFilters({...filters, onSale: true})} 
+                                name="filterRadio" 
+                                value="onSale" 
+                                type="radio"                            
+                                checked={filters.onSale === true}
+                            >
+                            </InputBase>
+                            <FormLabel sx={{
+                                color: '#fff',
+                                fontFamily: 'Raleway, serif'
+                            }}>On sale</FormLabel>
+                        </Box>
+
+                        <Box
+                            display={'flex'}
+                            gap={'.5rem'}
+                        >
+                            <InputBase 
+                                onClick={() => setFilters({...filters, onSale: false})} 
+                                name="filterRadio" 
+                                value="onRent" 
+                                type="radio"
+                                checked={filters.onSale === false}
+                            >
+                            </InputBase>
+                            <FormLabel sx={{
+                                color: '#fff',
+                                fontFamily: 'Raleway, serif'
+                            }}>On rent</FormLabel>
+                        </Box>
+                    </Box>
+                    
+                    {
+                        search ? 
+                            <Button onClick={handleUndoFilters} sx={{
+                                color: '#fff',
+                                fontSize: '.8rem',
+                                fontFamily: 'Raleway, serif',
+                                textTransform: 'lowercase',
                                 ":hover": {
                                     background: 'transparent'
                                 }
