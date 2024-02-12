@@ -86,3 +86,151 @@
     background-color: transparent;
     color: #fff; 
 }
+
+@media screen and (max-width: 1270px) {
+    #home-sublogo {
+        text-align: center;
+        font-size: 2.3rem;
+    }
+    #preferences-container {
+        height: 80vh;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    #home-sublogo {
+        text-align: center;
+        font-size: 2rem;
+    }
+    #home-info{
+        font-size: 1.1rem;
+    }
+    #preferences-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media screen and (max-width: 970px) {
+    #home-logo-txt {
+        font-size: 1.5rem;
+    }
+    .home-logo {
+        width: 100px;
+    }
+    #home-sublogo {
+        text-align: center;
+        font-size: 1.7rem;
+    }
+    #home-card {
+        width: 180px;
+    }
+    #guide-title {
+        font-size: 1.8rem;
+    }
+    #guide-card {
+        width: 250px;
+        height: 300px;
+    }
+    #guide-c-title {
+        font-size: 1.1rem;
+    }
+    #guide-description {
+        font-size: .9rem;
+    }
+    #preferences-container {
+        height: 110vh;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    #home-logo-txt {
+        font-size: 1.3rem;
+    }
+    #home-sublogo {
+        text-align: center;
+        font-size: 1.3rem;
+    }
+    .home-logo {
+        width: 90px;
+    }
+    #home-info{
+        font-size: 1rem;
+    }
+    .home-link {
+        width: 80px;
+        font-size: .8rem;
+    }
+    #home-card {
+        width: 160px;
+        padding: .7rem;
+    }
+    #home-card-number {
+        font-size: 1.8rem;
+    }
+    #home-card-data {
+        font-size: 1rem;
+    }
+    #guide-card {
+        border-right: none;
+    }
+    #guide-cards {
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 2rem;
+        height: 215vh;
+        padding-bottom: 4rem;
+    }
+
+}
+
+@media screen and (max-width: 640px) {
+    #home-logo-txt {
+        font-size: 1.2rem;
+    }
+
+    #home-sublogo {
+        text-align: center;
+        font-size: .9rem;
+    }
+
+    .home-logo {
+        width: 80px;
+    }
+
+    #home-info{
+        font-size: .7rem;
+    }
+
+    #home-left {
+        width: 50%;
+    }
+
+    #home-right {
+        width: 40%;
+    }
+
+    .home-link {
+        width: 80px;
+        font-size: .8rem;
+    }
+    #home-card {
+        width: 140px;
+    }
+
+}
+
+@media screen and (max-width: 540px) {
+    #home-card {
+        width: 110px;
+    }
+    #home-card-number {
+        font-size: 1.5rem;
+    }
+    #home-card-data {
+        font-size: .7rem;
+    }
+    #home-cards {
+        gap: 1.5rem;
+    }
+}
+

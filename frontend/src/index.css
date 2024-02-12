@@ -41,3 +41,43 @@ input, textarea {
 .footer-link:hover {
     color: #fff;
 }
+
+
+@media screen and (max-width: 940px){
+    #footer-section {
+        font-size: 1rem;
+    }
+    .footer-link {
+        font-size: .8rem;
+    }
+    #footer-columns {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 780px){
+    #footer-section {
+        font-size: .85rem;
+    }
+    .footer-link {
+        font-size: .75rem;
+    }
+    #footer-columns {
+        width: 100%;
+    }
+    #footer-copy {
+        font-size: .8rem;
+    }
+}
+
+@media screen and (max-width: 540px){
+    #footer-section {
+        font-size: .75rem;
+    }
+    .footer-link {
+        font-size: .65rem;
+    }
+    #footer-copy {
+        font-size: .7rem;
+    }
+}

@@ -8,22 +8,26 @@ import guideSvg3 from "../../assets/svg/guide-3.svg"
 const Guide = () => {
   return (
     <Box 
+        id="guide-container"
         width={'100%'}
-        height={'105vh'}
+        height={'auto'}
+        minHeight={'105vh'}
         position={'relative'}
         sx={{background: 'rgba(0,0,0, 0.94)'}}
     >
         <Box 
+            id="home-cards"
             position={'absolute'} top={'-2rem'}
             display={'flex'} justifyContent={'center'}
             width={'100%'} gap={'3rem'}
         >
-            <Card sx={{
+            <Card id="home-card" sx={{
                 width: '200px',
                 padding: '1.2rem 0',
                 background: '#000'
             }}>
                 <Typography 
+                    id="home-card-number"
                     typography={'h5'}
                     color={'#fff'}
                     fontSize={'2.2rem'}
@@ -32,6 +36,7 @@ const Guide = () => {
                         +1.5k
                 </Typography>
                 <Typography 
+                    id="home-card-data"
                     typography={'p'}
                     color={'rgba(255,255,255, .7)'}
                     fontSize={'1.1rem'}
@@ -41,12 +46,13 @@ const Guide = () => {
                     Properties for sale
                 </Typography>
             </Card>
-            <Card sx={{
+            <Card id="home-card" sx={{
                 width: '200px',
                 padding: '1.2rem 0',
                 background: '#000'
             }}>
                 <Typography 
+                    id="home-card-number"
                     typography={'h5'}
                     color={'#fff'}
                     fontSize={'2.2rem'}
@@ -55,6 +61,7 @@ const Guide = () => {
                         +70
                 </Typography>
                 <Typography 
+                    id="home-card-data"
                     typography={'p'}
                     color={'rgba(255,255,255, .7)'}
                     fontSize={'1.1rem'}
@@ -64,12 +71,13 @@ const Guide = () => {
                         Cities/States
                 </Typography>
             </Card>
-            <Card sx={{
+            <Card id="home-card" sx={{
                 width: '200px',
                 padding: '1.2rem 0',
                 background: '#000'
             }}>
-                <Typography 
+                <Typography
+                    id="home-card-number"
                     typography={'h5'}
                     color={'#fff'}
                     fontSize={'2.2rem'}
@@ -78,6 +86,7 @@ const Guide = () => {
                     +1.2mill.
                 </Typography>
                 <Typography 
+                    id="home-card-data"
                     typography={'p'}
                     color={'rgba(255,255,255, .7)'}
                     fontSize={'1.1rem'}
@@ -89,14 +98,15 @@ const Guide = () => {
         </Box>
 
         <Box padding={'6.5rem 1.8rem 0rem 1.8rem'}>
-            <Typography typography={'h3'} fontSize={'2.2rem'} color={'#fff'} marginBottom={'1.7rem'}>
+            <Typography id="guide-title" typography={'h3'} fontSize={'2.2rem'} color={'#fff'} marginBottom={'1.7rem'}>
                 How to buy or rent a property in Real State?
             </Typography>
             <Box sx={{
                 display: 'flex'
             }}>
-                <Box width={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} gap={'2rem'}>
+                <Box id="guide-cards" width={'100%'} display={'flex'} justifyContent={'center'} alignItems={'center'} gap={'2rem'}>
                     <Box 
+                        id="guide-card"
                         width={'350px'} 
                         height={'370px'}
                         display={'flex'} 
@@ -106,6 +116,7 @@ const Guide = () => {
                     >
                         <Box>
                             <Typography 
+                                id="guide-c-title"
                                 typography={'p'} 
                                 fontSize={'1.3rem'} 
                                 color={'#fff'} 
@@ -114,6 +125,7 @@ const Guide = () => {
                                 Search the house you like in the location you want
                             </Typography>
                             <Typography 
+                                id="guide-description"
                                 typography={'p'} 
                                 fontSize={'1rem'} 
                                 color={'rgba(255,255,255, .6)'} 
@@ -125,6 +137,7 @@ const Guide = () => {
                         <img className="step-img step-img-1" src={guideSvg1} alt="first step" />
                     </Box>
                     <Box 
+                        id="guide-card"
                         width={'350px'} 
                         height={'370px'}
                         display={'flex'} 
@@ -133,7 +146,8 @@ const Guide = () => {
                         paddingRight={'2rem'}
                     >
                         <Box>
-                            <Typography 
+                            <Typography
+                                id="guide-c-title" 
                                 typography={'p'} 
                                 fontSize={'1.3rem'} 
                                 color={'#fff'} 
@@ -142,6 +156,7 @@ const Guide = () => {
                                 Define the customization parameters for your property
                             </Typography>
                             <Typography 
+                                id="guide-description"
                                 typography={'p'} 
                                 fontSize={'1rem'} 
                                 color={'rgba(255,255,255, .6)'} 
@@ -153,6 +168,7 @@ const Guide = () => {
                         <img className="step-img" src={guideSvg2} alt="second step" />
                     </Box>
                     <Box 
+                        id="guide-card"
                         width={'350px'} 
                         height={'370px'}
                         display={'flex'} 
@@ -162,6 +178,7 @@ const Guide = () => {
                     >
                         <Box>
                             <Typography 
+                                id="guide-c-title"
                                 typography={'p'} 
                                 fontSize={'1.3rem'} 
                                 color={'#fff'} 
@@ -170,6 +187,7 @@ const Guide = () => {
                                 Sign the contract and become the owner!
                             </Typography>
                             <Typography 
+                                id="guide-description"
                                 typography={'p'} 
                                 fontSize={'1rem'} 
                                 color={'rgba(255,255,255, .6)'} 

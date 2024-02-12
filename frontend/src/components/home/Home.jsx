@@ -16,7 +16,7 @@ const Home = () => {
       position: 'relative'
     }}>
       <Nav/>
-      <Box sx={{
+      <Box className="home-content" sx={{
         height: 'calc(100vh - 4rem)',
         width: '100%',
         position: "absolute",
@@ -26,9 +26,10 @@ const Home = () => {
         justifyContent: 'center',
       }}>
         <Box width={'75%'} display={'flex'} alignItems={'center'} gap={'4rem'} height={'80%'}>
-          <Box width={'41%'} textAlign={'center'}>
+          <Box id="home-left" width={'41%'} textAlign={'center'}>
               <img className="home-logo" src={logo} alt="logo image" />
               <Typography 
+                  id="home-logo-txt"
                   typography={'h3'} 
                   fontFamily={"'Lora', serif"} 
                   fontWeight={'500'}
@@ -39,6 +40,7 @@ const Home = () => {
                   Real State
               </Typography>
               <Typography 
+                  id="home-sublogo"
                   typography={'h1'} 
                   fontSize={'3rem'}
                   color={'#fff'}
@@ -46,8 +48,10 @@ const Home = () => {
               >Find your place, enjoy your home.</Typography>
           </Box>
 
-          <Box width={'50%'} marginTop={'2rem'}>
-            <Typography typography={'h3'} 
+          <Box id="home-right" width={'50%'} marginTop={'2rem'}>
+            <Typography 
+              id="home-info"
+              typography={'h3'} 
               fontSize={'1.33rem'}
               color={"rgba(255,255,255, .7)"} 
               textAlign={'center'}

@@ -7,6 +7,9 @@
     display: flex;
 }
 
+#selections-1, #selections-2 {
+    opacity: .5
+}
 
 #selections-1 {
     background-image: linear-gradient(rgba(0,0,0, .4), rgba(0,0,0, .6)), url(../../assets//images/selections1.png);

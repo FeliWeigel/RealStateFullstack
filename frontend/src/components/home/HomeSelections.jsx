@@ -21,7 +21,7 @@ const HomeSelections = () => {
           id="selections-1"  
           onMouseOver={(e) => e.target.style.opacity = '1'}
           onMouseLeave={(e) => e.target.style.opacity = '.5'}
-          to="properties/rust" 
+          to="/properties/all" 
         >
             <Typography 
                 typography={'p'} 
@@ -38,7 +38,7 @@ const HomeSelections = () => {
           id="selections-2" 
           onMouseOver={(e) => e.target.style.opacity = '1'}
           onMouseLeave={(e) => e.target.style.opacity = '.5'}
-          to="properties/minimalist" 
+          to="/properties/all" 
         >
             <Typography 
                 typography={'p'} 

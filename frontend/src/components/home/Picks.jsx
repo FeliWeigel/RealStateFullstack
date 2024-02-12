@@ -15,11 +15,12 @@ import {credit} from 'react-icons-kit/entypo/credit'
 
 const Picks = () => {
   return (
-    <Box height={'70vh'} sx={{
+    <Box id="preferences-container" height={'70vh'} sx={{
       background: 'rgba(0,0,0, 0.94)',
       padding: '1rem 2rem'
     }}>
       <Typography 
+        id="preferences-title"
         typography={'h3'} 
         fontSize={'1.95rem'}
         color={'#fff'}

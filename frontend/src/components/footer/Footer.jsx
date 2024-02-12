@@ -8,6 +8,7 @@ import { Box, Typography } from "@mui/material"
 const Footer = () => {
   return (
     <Box 
+        id="footer-container"
         height={'60vh'} 
         padding={'2rem 2.5rem'}
         sx={{
@@ -26,6 +27,7 @@ const Footer = () => {
             >Real State</Typography>
         </Box>
         <Box 
+            id="footer-columns"
             display={'flex'}
             width={'80%'}
             margin={'0 auto'}
@@ -37,6 +39,7 @@ const Footer = () => {
                 gap={'.25rem'}
             >
                 <Typography 
+                    id="footer-section"
                     typography={'p'} color={'#fff'}
                     fontSize={'1.2rem'} fontFamily={'lora serif'}
                 >
@@ -55,6 +58,7 @@ const Footer = () => {
                 gap={'.25rem'}
             >
                 <Typography 
+                    id="footer-section"
                     typography={'p'} color={'#fff'}
                     fontSize={'1.2rem'} fontFamily={'lora serif'}
                 >
@@ -73,6 +77,7 @@ const Footer = () => {
                 gap={'.25rem'}
             >
                 <Typography 
+                    id="footer-section"
                     typography={'p'} color={'#fff'}
                     fontSize={'1.2rem'} fontFamily={'lora serif'}
                 >
@@ -86,6 +91,7 @@ const Footer = () => {
             </Box>
         </Box>
         <Typography 
+            id="footer-copy"
             typography={'p'}
             fontSize={'.82rem'}
             color={'rgba(255,255,255, .7)'}
