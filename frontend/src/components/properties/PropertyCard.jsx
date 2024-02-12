@@ -66,7 +66,7 @@ const PropertyCard = ({property}) => {
 
 
     return (
-        <Card sx={{
+        <Card id="property-card" sx={{
             padding: '.5rem',
             background: '#fff',
             position: 'relative',

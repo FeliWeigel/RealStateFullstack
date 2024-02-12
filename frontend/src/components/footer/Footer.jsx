@@ -53,6 +53,7 @@ const Footer = () => {
             </Box>
 
             <Box 
+                
                 display={'flex'}
                 flexDirection={'column'}
                 gap={'.25rem'}

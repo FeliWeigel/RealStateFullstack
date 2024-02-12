@@ -1,4 +1,4 @@
-#nav {
+#nav, #nav-responsive {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -9,6 +9,11 @@
     top: 0;
     z-index: 10000;
     transition: ease-in-out .4s;
+}
+
+#nav-menu-links {
+    display: flex;
+    flex-direction: column;
 }
 
 .nav-menu {
@@ -25,20 +30,73 @@
     margin-left: .2rem;
 }
 
-.login-link {
+.login-link, .menu-login-link {
     color: #ffffffe0;
     transition: .3s;
 }
 
-.login-link:hover {
+.login-link:hover, .menu-login-link:hover {
     color: #fff;
     text-shadow: 1px 1px 3px  #ffffff83;
 }
 
-.nav-link {
+.nav-link, .menu-link {
     color: #ffffffbd;
+}
+
+.menu-link {
+    font-size: 1.4rem;
+}
+
+.menu-login-link, .menu-account-link {
+    font-size: 1.2rem;
 }
 
 .account-icon {
     color: #fff;
+}
+
+.toggle-nav {
+    color: rgba(255,255,255, .8);
+    transition: .4s;
+    display: none;
+    cursor: pointer;
+}
+
+.toggle-nav:hover {
+    color: #fff;
+}
+
+.back-menu-link {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    color: #ffffffa8;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.back-menu-link:hover {
+    color: #fff;
+}
+
+@media screen and (max-width: 980px){
+    #nav-responsive {
+        display: flex;
+    }
+    #nav {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 980px) {
+    #nav-responsive {
+        display: none;
+    }
+    #nav {
+        display: flex;
+    }
+    #nav-r-menu {
+        display: none;
+    }
 }

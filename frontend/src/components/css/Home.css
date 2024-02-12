@@ -176,6 +176,7 @@
     #guide-cards {
         flex-direction: column;
         justify-content: space-between;
+        align-items: center;
         gap: 2rem;
         height: 215vh;
         padding-bottom: 4rem;

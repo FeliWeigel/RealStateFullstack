@@ -57,3 +57,21 @@
 .fav-icon {
     cursor: pointer;
 }
+
+@media screen and (max-width: 980px) {
+    #properties-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 620px) {
+    #properties-grid {
+        grid-template-columns: 1fr;
+        place-items: center;
+        row-gap: 3rem;
+    }
+
+    #property-card {
+        width: 80%;
+    }
+}

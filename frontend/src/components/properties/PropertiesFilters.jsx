@@ -359,6 +359,7 @@ const PropertiesFilters = () => {
                     </Box>
                     : 
                     <Box
+                        id="properties-grid"
                         display={'grid'}
                         gridTemplateColumns={'repeat(3, 1fr)'}
                         rowGap={'1.5rem'}
