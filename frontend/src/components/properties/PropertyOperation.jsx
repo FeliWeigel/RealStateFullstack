@@ -48,6 +48,7 @@ const PropertyOperation = () => {
         padding={'2.2rem 2.5rem'}
     >
       <Typography 
+        id="contact-title"
         typography={'h3'}
         color={'#fff'}
         fontWeight={'600'}
@@ -71,6 +72,7 @@ const PropertyOperation = () => {
       </Typography>
 
       <Box 
+        id="contact-form"
         component={'form'}
         onSubmit={handleSubmit}
         sx={{

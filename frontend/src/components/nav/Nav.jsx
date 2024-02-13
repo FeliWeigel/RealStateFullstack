@@ -75,6 +75,7 @@ const Nav = () => {
                     </Link>
                     <Link className="nav-link" to="/properties/all">
                         <ListItem sx={{
+                            width:'120px',
                             cursor: 'pointer',
                             transition: '.4s',
                             ":hover": {

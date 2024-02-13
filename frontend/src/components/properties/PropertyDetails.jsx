@@ -58,17 +58,21 @@ const PropertyDetails = () => {
           </Box>
           : 
           <Box 
-            height={'110vh'}
+            id="details-container"
+            minHeight={'112vh'}
+            height={'auto'}
             display={'flex'} 
             alignItems={'center'}
             justifyContent={'center'}
           >
             <Box
+              id="details-content"
               display={'flex'}
               gap={'3rem'}
               padding={'0 4rem'}
-              >
+            >
               <Box 
+                id="details-images"
                 display={'flex'}
                 width={'60%'}
                 flexDirection={'column'}
@@ -81,6 +85,7 @@ const PropertyDetails = () => {
                   alt="property image" 
                 />
                 <Box
+                  id="details-imgs-sec"
                   display={'flex'}
                   columnGap={'1rem'}
                 >
@@ -97,11 +102,13 @@ const PropertyDetails = () => {
               </Box>
 
               <Box
+                id="details-txt"
                 width={'35%'}
                 display={'flex'}
                 flexDirection={'column'}
               >
                 <Typography 
+                    id="prop-name"
                     typography={'h4'} 
                     fontSize={'1.7rem'}
                     marginBottom={'.4rem'} 
@@ -123,6 +130,7 @@ const PropertyDetails = () => {
                   {property.name}
                 </Typography>
                 <Typography 
+                    id="prop-location"
                     typography={'h4'} 
                     fontSize={'1.3rem'} 
                     fontWeight={'400'} 
@@ -133,16 +141,18 @@ const PropertyDetails = () => {
                   {property.location}
                 </Typography>
                 <Typography 
+                    id="prop-price"
                     typography={'p'} 
                     fontSize={'1.3rem'} 
                     fontWeight={'400'} 
                     color={'rgba(255,255,255, .9)'}
-                    marginBottom={'.5rem'}
+                    marginBottom={'.35rem'}
                 >
                   Estimated price: ${property.price} ({property.onSale ? "Sale" : "Rent"})
                 </Typography>
                 
                 <Typography 
+                    id="prop-description"
                     typography={'p'} 
                     fontSize={'1rem'} 
                     fontWeight={'400'}
@@ -152,7 +162,7 @@ const PropertyDetails = () => {
                 </Typography>
 
                 <Link to={`/properties/details/contact/${property.propertyId}`}>
-                  <Button sx={{
+                  <Button id="contact-button" sx={{
                       color: 'rgba(0,0,0, .9)',
                       background: '#fff',
                       padding: '4px 0',
