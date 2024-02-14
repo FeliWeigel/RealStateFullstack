@@ -70,6 +70,7 @@ export default class LoginForm extends React.Component{
     render(){
         return(
             <Box 
+                id="login-container"
                 width={'100%'}
                 height={'100vh'}
                 display={'flex'}
@@ -81,8 +82,7 @@ export default class LoginForm extends React.Component{
                     <Typography typography={'p'}>Go to home</Typography>
                 </Link>
 
-                <Box id="register-bg">
-                    
+                <Box id="auth-bg">
                     <img className="auth-logo" src={logo} alt="logo" />
                     <Typography typography={'p'}
                         color={"#fff"}
@@ -91,6 +91,7 @@ export default class LoginForm extends React.Component{
                 </Box>
 
                 <Box 
+                    id="auth-section"
                     width={'42%'} 
                     padding={'3.5rem 2rem'}
                     color={'#fff'}
@@ -98,6 +99,7 @@ export default class LoginForm extends React.Component{
                     flexDirection={'column'}
                 >
                     <Typography 
+                        id="login-title"
                         typography={'h3'} 
                         fontSize={'1.9rem'} 
                         marginBottom={'1.3rem'}
@@ -105,6 +107,7 @@ export default class LoginForm extends React.Component{
                             Log in and start looking for the place of your dreams!
                     </Typography>
                     <Box 
+                        id="login-form"
                         component={'form'}
                         onSubmit={this.handleSubmit}
                         width={'95%'}

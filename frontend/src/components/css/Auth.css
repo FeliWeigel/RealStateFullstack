@@ -1,4 +1,4 @@
-#register-bg {
+#auth-bg {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -66,3 +66,57 @@
     text-align: right;
     margin-top: -10px;
 }
+
+@media screen and (max-width: 1220px){
+    #register-container, #login-container {
+        height: 110vh;
+    }
+}
+
+@media screen and (max-width: 1024px){
+    #auth-bg {
+        width: 50%;
+    }
+    #auth-section {
+        width: 50%;
+    }
+    
+}
+
+@media screen and (max-width: 980px) {
+    #register-title, #login-title {
+        font-size: 1.7rem;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    #auth-bg {
+        display: none;
+    } 
+    #auth-section {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding: 4rem 2rem;
+        align-items: center;
+    }
+    #login-form, #register-form {
+        width: 55%;
+    }
+    #register-title, #login-title {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 680px){
+    #login-form, #register-form {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 540px){
+    #login-form, #register-form {
+        width: 80%;
+    }
+}
+

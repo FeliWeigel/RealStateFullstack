@@ -73,6 +73,7 @@ export default class RegisterForm extends React.Component{
     render(){
         return(
             <Box 
+                id="register-container"
                 width={'100%'}
                 height={'100vh'}
                 display={'flex'}
@@ -84,7 +85,7 @@ export default class RegisterForm extends React.Component{
                     <Typography typography={'p'}>Go to home</Typography>
                 </Link>
 
-                <Box id="register-bg">
+                <Box id="auth-bg">
                     
                     <img className="auth-logo" src={logo} alt="logo" />
                     <Typography typography={'p'}
@@ -94,19 +95,22 @@ export default class RegisterForm extends React.Component{
                 </Box>
 
                 <Box 
+                    id="auth-section"
                     width={'42%'} 
                     padding={'1.7rem 2rem'}
                     color={'#fff'}
                     display={'flex'}
                     flexDirection={'column'}
                 >
-                    <Typography 
+                    <Typography
+                        id="register-title" 
                         typography={'h3'} 
                         fontSize={'1.9rem'} 
                         marginBottom={'1.3rem'}>
                             Register to find your future home!
                     </Typography>
                     <Box 
+                        id="register-form"
                         component={'form'}
                         onSubmit={this.handleSubmit}
                         padding={'2.2rem 3rem'}
