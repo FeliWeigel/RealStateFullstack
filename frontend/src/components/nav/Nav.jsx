@@ -50,7 +50,7 @@ const Nav = () => {
                 </Link>
                 <List id="nav-links" sx={{
                     display: 'flex',
-                    width: '35%',
+                    width: '30%',
                     color: 'rgba(255,255,255, 0.5)'
                 }}>
                     <Link className="nav-link" to="/">
@@ -72,17 +72,6 @@ const Nav = () => {
                                 transform: 'translateY(-.2rem)'
                             }
                         }}>Properties</ListItem>
-                    </Link>
-                    <Link className="nav-link" to="/properties/all">
-                        <ListItem sx={{
-                            width:'120px',
-                            cursor: 'pointer',
-                            transition: '.4s',
-                            ":hover": {
-                                color: '#fff',
-                                transform: 'translateY(-.2rem)'
-                            }
-                        }}>About Us</ListItem>
                     </Link>
                     
                     <Link className="nav-link" to="/contact_form">
@@ -193,17 +182,6 @@ const Nav = () => {
                         }
                     }}>Properties</ListItem>
                 </Link>
-                <Link className="menu-link" to="/properties/all" onClick={() => setToggleMenu(false)}>
-                    <ListItem sx={{
-                        cursor: 'pointer',
-                        transition: '.4s',
-                        ":hover": {
-                            color: '#fff',
-                            transform: 'translateY(-.2rem)'
-                        }
-                    }}>About Us</ListItem>
-                </Link>
-                
                 <Link className="menu-link" to="/contact_form" onClick={() => setToggleMenu(false)}>
                     <ListItem sx={{
                         cursor: 'pointer',
