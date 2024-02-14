@@ -65,6 +65,7 @@ const RecoverRequestForm = () => {
                     textAlign={'center'}
                 >Password recovery request</Typography>
                 <Box 
+                    id="rec-request-form"
                     component={'form'}
                     onSubmit={handleSubmit}
                     sx={{

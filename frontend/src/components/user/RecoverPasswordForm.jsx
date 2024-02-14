@@ -61,6 +61,7 @@ const RecoverPasswordForm = () => {
             </Link>
 
             <Box 
+                id="recover-form"
                 component={'form'}
                 onSubmit={handleSubmit}
                 sx={{

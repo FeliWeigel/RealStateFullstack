@@ -89,11 +89,13 @@ const UserProfile = () => {
         <Nav/>
         {user && !loading ? 
           <Box 
+            id="profile-container"
             display={'flex'}
             height={'105vh'}
             width={'100%'}
           >
             <Box
+              id="account-details"
               display={'flex'}
               flexDirection={'column'}
               rowGap={'.5rem'}
@@ -105,6 +107,7 @@ const UserProfile = () => {
               }}
             >
               <Typography 
+                id="account-title"
                 typography={'h4'}
                 position={'relative'}
                 marginBottom={'1.5rem'}
@@ -231,6 +234,7 @@ const UserProfile = () => {
               }}
             >
               <Typography
+                id="favorite-title"
                 typography={'h4'}
                 position={'relative'}
                 marginBottom={'1.2rem'}
@@ -254,10 +258,10 @@ const UserProfile = () => {
                   return (
                     <>
                       {property != undefined ? 
-                        <Card key={property.propertyId} 
+                        <Card id="fav-card" key={property.propertyId} 
                         sx={{
                           display: 'flex',
-                          width: '90%',
+                          width: '80%',
                           alignItems:'center',                        
                           height: '100px',
                           background: 'transparent',
@@ -269,18 +273,19 @@ const UserProfile = () => {
                         <Box
                           padding={'1rem'}
                         >
-                          <Typography color={'#fff'} typography={'h5'}>
+                          <Typography id="fav-name" color={'#fff'} typography={'h5'}>
                               {property.name}
                           </Typography>
-                          <Typography color={'rgba(255,255,255, .65)'} typography={'h6'}>
+                          <Typography id="fav-location" color={'rgba(255,255,255, .65)'} typography={'h6'}>
                               {property.location}
                           </Typography>
-                          <Typography color={'#fff'} typography={'h5'} fontSize={'1.1rem'}>
+                          <Typography id="fav-price" color={'#fff'} typography={'h5'} fontSize={'1.1rem'}>
                               ${property.price}
                           </Typography>
                         </Box>
                         <Link to={`/properties/details/${property.propertyId}`}>
                           <Button 
+                            id="fav-btn"
                             sx={{
                               background: '#fff',
                               position: 'absolute',

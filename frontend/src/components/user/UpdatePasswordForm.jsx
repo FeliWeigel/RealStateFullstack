@@ -58,6 +58,7 @@ const UpdatePasswordForm = () => {
             </Link>
 
             <Box 
+                id="update-form"
                 component={'form'}
                 onSubmit={handleSubmit}
                 sx={{

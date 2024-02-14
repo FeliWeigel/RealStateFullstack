@@ -3,7 +3,7 @@ span {
 }
 
 .fav-img {
-    width: 25%;
+    width: 30%;
     object-fit: cover;
 }
 
@@ -14,8 +14,8 @@ span {
 
 .more-follow-btn {
     position: absolute;
-    bottom: 2.7rem;
-    right: 4.2rem;
+    bottom: 3rem;
+    right: 9rem;
     color: #fff;
     padding: 6px;
     border-radius: 3px;
@@ -29,4 +29,93 @@ span {
 
 .more-follow-icon {
     position: relative;
+}
+
+@media screen and (max-width: 1180px) {
+    .more-follow-btn {
+        right: 7rem;
+    }
+}
+
+@media screen and (max-width: 980px) {
+    .more-follow-btn {
+        right: 3rem;
+    }
+    #account-title , #favorite-title {
+        font-size: 1.7rem;
+    }
+    #account-details {
+        width: 60%;
+    }
+    #fav-card {
+        width: 90%;
+        padding-left: .8rem;
+    }
+    .fav-img {
+        width: 25%;
+    }
+    #fav-name {
+        font-size: 1.3rem;
+    }
+    #fav-location {
+        font-size: 1rem;
+    }
+    #fav-price {
+        font-size: 1.1rem;
+    }
+
+}
+
+@media screen and (max-width: 780px) {
+    #fav-name {
+        font-size: 1.1rem;
+    }
+    #fav-location {
+        font-size: .8rem;
+    }
+    #fav-price {
+        font-size: .9rem;
+    }
+    #fav-btn {
+        font-size: .6rem;
+        padding: 3px;
+    }
+    .fav-img {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 700px){
+    #profile-container {
+        flex-direction: column;
+        height: auto;
+    }
+    #fav-card {
+        padding-left: 0;
+    }
+    #account-details, #favorite-container {
+        width: 100%;
+        padding: 4.7rem 1rem 3rem 3rem;
+    }
+    .more-follow-btn {
+        bottom: 1rem;
+        right: 2.3rem;
+    }
+}
+
+@media screen and (max-width: 620px){
+    #profile-container {
+        flex-direction: column;
+        height: auto;
+    }
+    #account-details, #favorite-container {
+        width: 100%;
+        padding: 4.7rem 1rem 3rem 3rem;
+    }
+    #fav-card {
+        padding-left: .7rem;
+    }
+    .more-follow-btn {
+        right: 1.7rem;
+    }
 }

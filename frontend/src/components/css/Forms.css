@@ -64,3 +64,32 @@
     color: rgba(0,0,0, .93);
 }
 
+@media screen and (max-width: 1024px){
+    #update-form, #rec-request-form,
+    #recover-form {
+        width: 50%;
+    }
+}
+
+
+@media screen and (max-width: 780px){
+    #update-form, #rec-request-form,
+    #recover-form {
+        width: 60%;
+    }
+}
+
+
+@media screen and (max-width: 640px){
+    #update-form, #rec-request-form,
+    #recover-form {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 540px){
+    #update-form, #rec-request-form,
+    #recover-form {
+        width: 80%;
+    }
+}
