@@ -22,6 +22,13 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserDetails(userToken), HttpStatus.OK);
     }
 
+    @PostMapping("/update/email")
+    public ResponseEntity<Object> updateUserPassword(@RequestHeader(name = "Authorization") String authHeader,
+                                                     @RequestBody UpdateEmailRequest request){
+        String userToken = extractToken(authHeader);
+        return authService.updateEmail(userToken, request);
+    }
+
     @PostMapping("/update/pass")
     public ResponseEntity<Object> updateUserPassword(@RequestHeader(name = "Authorization") String authHeader,
                                                      @RequestBody UpdatePasswordRequest request){

@@ -22,6 +22,11 @@ export const userOperation = (emailRequest, {propertyId}) => {
     return axios.post(url, emailRequest, config())
 }
 
+export const userUpdateEmail = (updateRequest) => {
+    const url = `${ApiUrlBase}/user/update/email`
+    return axios.post(url, updateRequest, config())
+}
+
 export const userUpdatePassword = (updateRequest) => {
     const url = `${ApiUrlBase}/user/update/pass`
     return axios.post(url, updateRequest, config())

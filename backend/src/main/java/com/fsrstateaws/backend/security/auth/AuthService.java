@@ -4,10 +4,7 @@ import com.fsrstateaws.backend.exceptions.*;
 import com.fsrstateaws.backend.security.jwt.JwtService;
 import com.fsrstateaws.backend.security.jwt.Token;
 import com.fsrstateaws.backend.security.jwt.TokenRepository;
-import com.fsrstateaws.backend.user.Role;
-import com.fsrstateaws.backend.user.UpdatePasswordRequest;
-import com.fsrstateaws.backend.user.User;
-import com.fsrstateaws.backend.user.UserRepository;
+import com.fsrstateaws.backend.user.*;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -263,5 +260,29 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
         return new ResponseEntity<>("Your password has been updated correctly!", HttpStatus.OK);
+    }
+
+    public ResponseEntity<Object> updateEmail(String token, UpdateEmailRequest request){
+        Token tokenSaved = tokenRepository.findByToken(token).orElse(null);
+        if(tokenSaved == null){
+            throw new InvalidTokenException("Token not found.");
+        }
+
+        String userEmail = jwtService.extractUsername(token);
+        User user = userRepository.findByEmail(userEmail).orElse(null);
+        if(user == null || userEmail == null){
+            throw new UsernameNotFoundException("User " + userEmail + " not found.");
+        }
+
+        List<Token> userTokens = tokenRepository.allValidTokensByUser(user.getId());
+        if(!userTokens.contains(tokenSaved)){
+            throw new InvalidTokenException("Token invalid for user: " + userEmail);
+        } else if(request.getNewEmail().isBlank()) {
+            return new ResponseEntity<>(new NullFieldsException("Error! The fields cannot be null. Please try again"), HttpStatus.BAD_REQUEST);
+        }
+
+        user.setEmail(request.getNewEmail());
+        userRepository.save(user);
+        return new ResponseEntity<>("Your email has been updated correctly!", HttpStatus.OK);
     }
 }
